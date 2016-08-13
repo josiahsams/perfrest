@@ -5,25 +5,22 @@ package com.ibm.resources;
  */
 import io.swagger.annotations.*;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import com.ibm.aix.*;
 
 @Path("/perf")
 @Api(value = "/perf",  description = "AIX Performance APIs",  tags = "perf")
 @Produces({MediaType.TEXT_HTML, MediaType.APPLICATION_JSON})
 public class perfrest {
-    @GET
+    @POST
     @Path("/config")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)  
     @ApiOperation(value = "Print System Configuration",
-            notes = "Returns a System Configuration - test"
+            notes = "Returns a System Configuration - sample test data"
     )
-    public LparConfig getConfig() {
-	return perfstat.getLparConfig();
+    public LparConfig getConfig(InputFormat input) {
+        return LparConfig.getLparConfig(input);
     }
 }
