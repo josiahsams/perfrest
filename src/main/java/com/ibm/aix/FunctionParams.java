@@ -2,12 +2,17 @@ package com.ibm.aix;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by joe on 8/13/16.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class FunctionParams {
+    @NotNull
     private String name;
+    @NotNull
     private String type;
     private long count;
     private String countRef;

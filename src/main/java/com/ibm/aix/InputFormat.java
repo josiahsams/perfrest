@@ -6,7 +6,7 @@ package com.ibm.aix;
 public class InputFormat {
     private FunctionParams []parameters;
 
-    public FunctionParams[] getParamaters() {
+    public FunctionParams[] getParameters() {
         return parameters;
     }
 

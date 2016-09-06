@@ -1,0 +1,52 @@
+{
+  "paths" : [
+    {
+      "route": "/path1/{param1}/path2/{param2}",
+      "routeInfo" : {
+        "path": "/newpath/{param1}",
+        "scheme" : "http",
+        "host" : "localhost",
+        "port" : "4000",
+        "method" : "get",
+        "additionalQueryParams" : "name=fixedvalue&param2={param2}"
+
+      }
+    },
+    {
+      "route": "/path/{param1}",
+      "routeInfo" : {
+        "path": "/newpath",
+        "scheme" : "http",
+        "host" : "121.24.32.2",
+        "port" : "4000",
+        "method" : "get",
+        "additionalQueryParams" : "name=fixedvalue&param1={param1}"
+
+      }
+    },
+    {
+      "route": "/path11/{param1}/path22/{param2}",
+      "routeInfo" : {
+        "path": "/newpath",
+        "scheme" : "http",
+        "host" : "5.23.34.12",
+        "port" : "4000",
+        "method" : "get",
+        "additionalQueryParams" : "name=fixedvalue&param1={param1}&param2={param2}"
+
+      }
+    },
+    {
+      "route": "/path",
+      "routeInfo" : {
+        "path": "/newpath",
+        "scheme" : "http",
+        "host" : "9.34.34.2",
+        "port" : "4000",
+        "method" : "get",
+        "additionalQueryParams" : "name=fixedvalue"
+
+      }
+    }
+  ]
+}
