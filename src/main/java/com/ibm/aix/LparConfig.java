@@ -69,7 +69,7 @@ public class LparConfig {
 //        csm.setParams(new FunctionParams[]{fp1, fp2, fp3, fp4, fp5, fp6});
 //        csm.setReturnCode(rc);
 
-        csm.setParams(input.getParamaters());
+        csm.setParams(input.getParameters());
 
         FunctionParams rc = new FunctionParams("returnObj", "struct");
         rc.setSubTypeId("structabc");
