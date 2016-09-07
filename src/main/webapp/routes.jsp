@@ -16,9 +16,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script>
 $(document).ready (function(){
-$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-    $("#success-alert").slideUp(500);
-});
+    function hideMessage() {
+        setTimeout(function(){
+            $(".messages").slideUp(1000);
+            hideMessage();
+       }, 10000);
+    }
+    hideMessage();
 });
 </script>
     </head>
@@ -36,7 +40,7 @@ $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
           <ul class="nav navbar-nav navbar-left">
-                  <li class="active"><a href="#">Home</a></li>
+                  <li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
 
                   <li><a href="#" data-toggle="modal" data-target="#myModal">New Route</a></li>
 
@@ -59,7 +63,7 @@ $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
         <div class="container">
             <h3>List Configured Routes</h3>
             <c:if test="${not empty message}">
-                <div class="alert alert-success fade in">
+                <div class="alert alert-success fade in messages" >
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     ${message}
                 </div>
@@ -169,85 +173,15 @@ $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 </div>
 
 
-<div id="newroute" class="collapse">
-
-            <form action="./routes" method="post"  role="form" data-toggle="validator" class="form-horizontal">
-                <c:if test ="${empty action}">
-                    <c:set var="action" value="add"/>
-                </c:if>
-                <input type="hidden" id="action" name="action" value="${action}"/>
-
-                <h3>Add New Route</h3>
-                <div class="form-group ">
-                    <label for="route" class="control-label col-sm-4">Path: </label>
-
-                    <div class="input-group  col-sm-offset-4  col-sm-8">
-                      <span class="input-group-addon" id="basic-addon3">
-                      ${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/
-                      </span>
-                      <input type="text" name="route" id="route" class="form-control" value="${route.route}"
-                                              required="true"  aria-describedby="basic-addon3"/>
-
-                    </div>
-
-
-
-</div>
- <div class="form-group ">
-  <label for="scheme" class="control-label col-sm-4">Target Scheme:</label>
-  <div class="col-sm-4">
-  <select class="form-control" id="scheme">
-    <option>http</option>
-    <option>https</option>
-  </select>
-  </div>
-  </div>
-   <div class="form-group ">
-                    <label for="host" class="control-label col-xs-4">Target Host:</label>
-                    <div class="col-sm-6">
-                    <input type="text" name="host" id="host" class="form-control" value="${route.routeInfo.host}"
-                        required="true"/>
-            </div>
-                        </div>
- <div class="form-group">
-                    <label for="port" class="control-label col-xs-4">Target Port:</label>
-                    <div class="col-sm-4">
-                    <input type="text" name="port" id="port" class="form-control" value="${route.routeInfo.port}"
-                                                required="true"/>
-    </div>
-</div>
- <div class="form-group">
-                    <label for="path" class="control-label col-xs-4">Target Path:</label>
-                    <div class="col-sm-8">
-                    <input type="text" name="path" id="path" class="form-control" value="${route.routeInfo.path}"
-                                                                        required="true"/>
-                                                                        </div>
-                                                                        </div>
- <div class="form-group">
-                    <label for="queryparam" class="control-label col-xs-4">Additional QueryParams:</label>
-
-                    <div class="col-sm-8">
-                    <input type="text" name="queryparam" id="queryparam" class="form-control" value="${route.routeInfo.additionalQueryParams}"
-                                                                        required="true"/>
-                                                                        </div>
-                                                                        </div>
-
-                                       <br></br>
-                    <button type="submit" class="btn btn-primary  btn-md">Add</button>
-                    <button type="clear" class="btn btn-default">Clear</button>
-
-            </form>
-
-</div>
                 <c:choose>
                     <c:when test="${not empty routeList}">
                         <table  class="table table-striped">
                             <thead >
                                 <tr class="info">
-                                    <td>#</td>
-                                    <td>Path</td>
-                                    <td>Target Path</td>
-                                    <td>Query Params</td>
+                                    <td class="col-sm-1">#</td>
+                                    <td class="col-sm-14">Path</td>
+                                    <!--td>Target Path</td>
+                                    <td>Query Params</td-->
 
 
                                 </tr>
@@ -255,10 +189,33 @@ $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
                             <c:forEach var="route" items="${routeList}" varStatus="index">
 
                                 <tr>
-                                    <td>${index.count}</td>
-                                    <td>${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}${route.route}</td>
-                                    <td>${route.routeInfo.scheme}://${route.routeInfo.host}:${route.routeInfo.port}${route.routeInfo.path}</td>
-                                    <td>${fn:escapeXml(route.routeInfo.additionalQueryParams)}</td>
+                                    <td class="col-sm-1">${index.count}</td>
+        <td class="col-sm-14">
+        <a data-toggle="collapse" href="#collapseExample_${index.count}" aria-expanded="false"
+        aria-controls="collapseExample_${index.count}">
+        ${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/proxy${route.route}
+        </a>
+
+        <div class="collapse" id="collapseExample_${index.count}">
+        <br>
+            <b>Target Path : </b>${route.routeInfo.scheme}://${route.routeInfo.host}:${route.routeInfo.port}${route.routeInfo.path} </br>
+            <b>Configured QueryParams : </b> ${fn:escapeXml(route.routeInfo.additionalQueryParams)} </br>
+        <br>
+
+
+           <form action="${pageContext.request.contextPath}/readuser" method="get" role="form" data-toggle="validator" class="form-horizontal">
+            <input type="text" class="form-control"  name="userurl" class="form-control"
+            value="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/proxy${fn:escapeXml(route.route)}">
+            <br>
+            <button type="submit" class="btn btn-primary">Try it Out ! </button>
+           </form>
+        <!--a class="btn btn-info" role="button" href='${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}${fn:escapeXml(route.route)}'>
+        Try it Out
+        </a-->
+        </div>
+        </td>
+                                    <!--td>${route.routeInfo.scheme}://${route.routeInfo.host}:${route.routeInfo.port}${route.routeInfo.path}</td>
+                                    <td>${fn:escapeXml(route.routeInfo.additionalQueryParams)}</td-->
 
                                 </tr>
                             </c:forEach>
@@ -273,10 +230,7 @@ $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
                     </c:otherwise>
                 </c:choose>
 
-<form action ="./newroute.jsp">
-    <br></br>
 
-</form>
 
         </div>
     </body>

@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import com.ibm.aix.Helpers;
 
 /**
  * Created by joe on 9/5/16.
@@ -96,44 +97,15 @@ public class RouteServlet  extends HttpServlet {
         String message = "The new route (" + pathName + ") has been successfully created.";
         req.setAttribute("message", message);
 
-        List<ForwardPath> routeList = new ArrayList<ForwardPath>();
-        try {
-
-            InputStream is = getServletContext().getResourceAsStream("/WEB-INF/forward.json");
-            BufferedReader r = new BufferedReader(new InputStreamReader(is));
-
-            StringBuilder jsonTxt = new StringBuilder();
-
-            String line = "";
-            while((line = r.readLine()) != null) {
-                jsonTxt.append(line);
-            }
-
-            ObjectMapper obj = new ObjectMapper();
-            Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
-
-
-            for (ForwardPath path: fobj.getPaths()) {
-                String pathstr = path.getRoute();
-                routeList.add(path);
-                // System.out.println(pathstr);
-
-            }
-            is.close();
-
-        } catch (Exception e ) {
-            System.err.println(e);
-        }
-
-        for(ForwardPath route : routeList) {
-            System.out.println(route.getRouteInfo().getHost());
-        }
+        List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
 
         String nextJSP = "/routes.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("routeList", routeList);
         dispatcher.forward(req, resp);
     }
+
+
 
 }
 

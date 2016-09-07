@@ -3,9 +3,14 @@ package com.ibm.aix;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by joe on 8/13/16.
@@ -79,4 +84,39 @@ public class Helpers {
     }
 
 
+    public static List<ForwardPath> getRouteList(ServletContext context) {
+        List<ForwardPath> routeList = new ArrayList<ForwardPath>();
+        try {
+
+            InputStream is = context.getResourceAsStream("/WEB-INF/forward.json");
+            BufferedReader r = new BufferedReader(new InputStreamReader(is));
+
+            StringBuilder jsonTxt = new StringBuilder();
+
+            String line = "";
+            while((line = r.readLine()) != null) {
+                jsonTxt.append(line);
+            }
+
+            ObjectMapper obj = new ObjectMapper();
+            Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
+
+
+            for (ForwardPath path: fobj.getPaths()) {
+                String pathstr = path.getRoute();
+                routeList.add(path);
+                // System.out.println(pathstr);
+
+            }
+            is.close();
+
+        } catch (Exception e ) {
+            System.err.println(e);
+        }
+
+        for(ForwardPath route : routeList) {
+            System.out.println(route.getRouteInfo().getHost());
+        }
+        return routeList;
+    }
 }
