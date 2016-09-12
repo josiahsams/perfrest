@@ -9,7 +9,36 @@
         "port" : "4000",
         "method" : "get",
         "additionalQueryParams" : "name=fixedvalue&param2={param2}"
-
+      },
+      "swaggerInfo" : {
+        "tags" : [ "perf" ],
+        "operationId" : "get",
+        "summary" : "Get Performance Data",
+        "description" : "Long description about the API method",
+        "produces" : [ "text/plain", "application/json"] ,
+        "parameters" : [
+          {
+            "name" : "param1",
+            "in" : "path",
+            "description" : "Input Parameter description",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "response" : {
+          "200" : {
+            "description" : "Return System Configuration",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
       }
     },
     {
@@ -22,6 +51,30 @@
         "method" : "get",
         "additionalQueryParams" : "name=fixedvalue&param1={param1}"
 
+      },
+      "swaggerInfo" : {
+        "tags" : [ "perf" ],
+        "operationId" : "get",
+        "summary" : "Get Performance Data 2 ",
+        "description" : "Long description about the API method 2",
+        "produces" : [ "text/plain", "application/json"] ,
+        "parameters" : [
+          {
+            "name" : "param1",
+            "in" : "path",
+            "description" : "Input Parameter description",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "response" : {
+          "200" : {
+            "description" : "Return Performance Data",
+            "schema": {
+              "ref": "#/definitions/OutputFormat"
+            }
+          }
+        }
       }
     },
     {
@@ -48,5 +101,55 @@
 
       }
     }
-  ]
+  ],
+  "definitions" : {
+    "InputFormat": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LparConfig"
+          }
+        }
+      }
+    },
+    "LparConfig": {
+      "type": "object",
+      "properties": {
+        "hostname": {
+          "type": "string"
+        },
+        "processorFamily": {
+          "type": "string"
+        },
+        "drives": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lcpus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "osbuild": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }

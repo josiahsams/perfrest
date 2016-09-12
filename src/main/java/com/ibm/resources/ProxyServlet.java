@@ -79,9 +79,23 @@ public class ProxyServlet extends HttpServlet
         } catch (Exception e) {
             System.err.println(e);
         }
+
+        // Handle Invalid Path.
+        if (selectedPath.getRoute() == null) {
+            String message = "<b>URL pattern is not configured </b>";
+            req.setAttribute("errormessage", message);
+
+            List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
+
+            String nextJSP = "/routes.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+            req.setAttribute("routeList", routeList);
+            dispatcher.include(req, resp);
+            return;
+        }
+
         String pattern = selectedPath.getRoute(); // "/path/{param1}/path2/{param2}";
 
-        String postcontentTemplate = "{'name':'sdfdsf','param1': '{param1}', 'param2': '{param2}' }";
         String getcontentTemplate = selectedPath.getRouteInfo().getAdditionalQueryParams();
         //"?name=sdfdsf&param1={param1}&param2={param2}";
 

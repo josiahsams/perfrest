@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 public class ReadUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userURL = req.getParameter("userurl");
+        String userURL = req.getParameter("prefix") + req.getParameter("userurl");
 
         String url = req.getRequestURL().toString();
 
