@@ -1,6 +1,8 @@
 package com.ibm.aix;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.models.Path;
+import io.swagger.models.Swagger;
 
 /**
  * Created by joe on 8/23/16.
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ForwardPath {
     String route;
     ForwardRouteInfo routeInfo;
+    Path swaggerInfo;
 
     public String getRoute() {
         return route;
@@ -24,5 +27,13 @@ public class ForwardPath {
 
     public void setRouteInfo(ForwardRouteInfo routeInfo) {
         this.routeInfo = routeInfo;
+    }
+
+    public Path getSwaggerInfo() {
+        return swaggerInfo;
+    }
+
+    public void setSwaggerInfo(Path swaggerInfo) {
+        this.swaggerInfo = swaggerInfo;
     }
 }

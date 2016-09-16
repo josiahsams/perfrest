@@ -11,31 +11,71 @@
         "additionalQueryParams" : "name=fixedvalue&param2={param2}"
       },
       "swaggerInfo" : {
-        "tags" : [ "perf" ],
-        "operationId" : "get",
-        "summary" : "Get Performance Data",
-        "description" : "Long description about the API method",
-        "produces" : [ "text/plain", "application/json"] ,
-        "parameters" : [
-          {
-            "name" : "param1",
-            "in" : "path",
-            "description" : "Input Parameter description",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "response" : {
-          "200" : {
-            "description" : "Return System Configuration",
-            "schema": {
-              "type": "string"
+        "get" : {
+          "tags": [
+            "perf"
+          ],
+          "operationId": "getPerf",
+          "summary": "Get Performance Data",
+          "description": "Long description about the API method",
+          "produces": [
+            "text/plain",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "param1",
+              "in": "path",
+              "description": "Input Parameter description",
+              "required": true
             }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
+          ],
+          "responses": {
+            "200": {
+              "description": "Return System Configuration",
+              "schema": {
+                "type": "string"
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        },
+        "post" : {
+          "tags": [
+            "perf"
+          ],
+          "operationId": "postPerf",
+          "summary": "Get Performance Data",
+          "description": "Long description about the API method",
+          "produces": [
+            "text/plain",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "param1",
+              "in": "path",
+              "description": "Input Parameter description",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Return System Configuration",
+              "schema": {
+                "type": "string"
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
             }
           }
         }
@@ -53,25 +93,31 @@
 
       },
       "swaggerInfo" : {
-        "tags" : [ "perf" ],
-        "operationId" : "get",
-        "summary" : "Get Performance Data 2 ",
-        "description" : "Long description about the API method 2",
-        "produces" : [ "text/plain", "application/json"] ,
-        "parameters" : [
-          {
-            "name" : "param1",
-            "in" : "path",
-            "description" : "Input Parameter description",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "response" : {
-          "200" : {
-            "description" : "Return Performance Data",
-            "schema": {
-              "ref": "#/definitions/OutputFormat"
+        "get" : {
+          "tags": [
+            "config"
+          ],
+          "operationId": "getConfig",
+          "summary": "Get Performance Data 2 ",
+          "description": "Long description about the API method 2",
+          "produces": [
+            "text/plain",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "param1",
+              "in": "path",
+              "description": "Input Parameter description",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Return Performance Data",
+              "schema": {
+                "ref": "#/definitions/OutputFormat"
+              }
             }
           }
         }
@@ -102,6 +148,16 @@
       }
     }
   ],
+  "tags" : [
+    {
+      "name": "perf",
+      "description": "APIs to get Performance Metrics"
+    },
+    {
+      "name": "config",
+      "description": "APIs to get Configuration Metrics"
+    }
+  ],
   "definitions" : {
     "InputFormat": {
       "type": "object",
@@ -114,6 +170,7 @@
         }
       }
     },
+
     "LparConfig": {
       "type": "object",
       "properties": {

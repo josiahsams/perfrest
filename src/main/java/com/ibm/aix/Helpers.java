@@ -2,6 +2,7 @@ package com.ibm.aix;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.util.Json;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -53,7 +54,7 @@ public class Helpers {
 
     public static String receiveMessage(){
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = Json.mapper();
         String message = "{}";
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(is));

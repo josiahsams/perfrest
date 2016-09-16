@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import com.ibm.aix.Helpers;
+import io.swagger.util.Json;
 
 /**
  * Created by joe on 9/5/16.
@@ -45,7 +46,7 @@ public class RouteServlet  extends HttpServlet {
                 jsonTxt.append(line);
             }
 
-            ObjectMapper obj = new ObjectMapper();
+            ObjectMapper obj = Json.mapper();
             Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
 
 

@@ -17,7 +17,9 @@ public class swaggerInfo {
     protected List<Scheme> schemes;
     protected List<String> consumes;
     protected List<String> produces;
-    protected Map<String, Model> definitions;
-    protected Map<String, Parameter> parameters;
+    protected List<Parameter> parameters;
     protected Map<String, Response> responses;
+
+
+
 }
