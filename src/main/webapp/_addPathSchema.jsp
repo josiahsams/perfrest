@@ -142,23 +142,54 @@
                 <div class="form-group">
                   <label for="paramSchemaType" class="control-label col-sm-2">Schema Type:</label>
                   <div class="col-sm-8">
-                      <select class="form-control" id="paramSchemaType">
-                        <option>String</option>
-                        <option>Array</option>
-                        <option>$ref</option>
-                      </select>
+                    <label class="radio-inline">
+                      <input type="radio" name="paramSchemaType">String
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="paramSchemaType">Array
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="paramSchemaType">$ref
+                    </label>
+                    </div>
                   </div>
-                </div>
+
                 <div class="form-group">
                   <label for="paramSchema" class="control-label col-sm-2">Schema:</label>
                   <div class="col-sm-8">
-                      <select class="form-control" id="paramSchema">
-                        <option>#/definitions/LparConfig</option>
-                        <option>#/definitions/InputFormat</option>
-                        <option>#/definitions/Error</option>
+                    <script  type="text/javascript">
+                      function showParamSchema(sel) {
+                          _id = sel.value;
+                          console.log("look for paramSchemaDetails_"+_id);
+                          $("[id^=paramSchemaDetails_]").each(function() {
+                            $(this).css("display", "none");;
+                            });
+
+                          document.getElementById("paramSchemaDetails_"+_id).style.display = "";
+
+                      }
+                    </script>
+                      <select class="form-control" id="paramSchema"
+                        onchange="showParamSchema(this);">
+                        <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_index">
+                          <option value="${ps_index.count}">#/definitions/${defn.getKey()}</option>
+                        </c:forEach>
                       </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2"></label>
+                  <div class="col-sm-8">
+                    <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_mesgIndex">
+                      <div class="well" id="paramSchemaDetails_${ps_mesgIndex.count}" style="display: none">
+                          ${defn.value}
+                     </div>
+
+                    </c:forEach>
+                  </div>
+                </div>
+
 
                 <div class="form-group">
                   <label for="paramReq" class="control-label col-sm-2">Required:</label>
@@ -199,28 +230,64 @@
                       required="true" placeholder="Provide response description"/>
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label for="responseSchemaType" class="control-label col-sm-2">Schema Type:</label>
                   <div class="col-sm-8">
-                      <select class="form-control" id="responseSchemaType">
-                        <option>String</option>
-                        <option>Array</option>
-                        <option>$ref</option>
-                      </select>
+                    <label class="radio-inline">
+                      <input type="radio" name="responseSchemaType">String
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="responseSchemaType">Array
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="responseSchemaType">$ref
+                    </label>
+                    </div>
                   </div>
-                </div>
+
+
                 <div class="form-group">
                   <label for="responseSchema" class="control-label col-sm-2">Schema:</label>
                   <div class="col-sm-8">
-                      <select class="form-control" id="responseSchema">
-                        <option>#/definitions/LparConfig</option>
-                        <option>#/definitions/InputFormat</option>
-                        <option>#/definitions/Error</option>
-                      </select>
-                  </div>
-                </div>
+                    <script  type="text/javascript">
+                      function showResponseSchema(sel) {
+                          _id = sel.value;
+                          console.log("look for paramResponseDetails_"+_id);
+                          $("[id^=paramResponseDetails_]").each(function() {
+                            $(this).css("display", "none");;
+                            });
 
+                          document.getElementById("paramResponseDetails_"+_id).style.display = "";
+
+                      }
+                    </script>
+                    <select class="form-control" id="ResponseSchema"
+                      onchange="showResponseSchema(this);">
+                      <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_index">
+                        <option value="${rs_index.count}">#/definitions/${resp.getKey()}</option>
+                      </c:forEach>
+                    </select>
+                </div>
               </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-sm-2"></label>
+                <div class="col-sm-8">
+                  <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_mesgIndex">
+                    <div class="well" id="paramResponseDetails_${rs_mesgIndex.count}" style="display: none">
+                        ${resp.value}
+                   </div>
+
+                  </c:forEach>
+              </div>
+
+
+            </div>
+          </div>
+
+
 
               <div class="form-group"><label  class="control-label col-sm-2"></label>
                 <div class="col-sm-8">

@@ -18,6 +18,7 @@
                   if(window.SwaggerTranslator) {
                     window.SwaggerTranslator.translate();
                   }
+
                   window.swaggerUi = new SwaggerUi({
                     url: url,
                     dom_id: "swagger-ui-container",
@@ -54,10 +55,11 @@
                   }
       });
 
+                var SwaggerApp = {};
+                 SwaggerApp.paramcount = 0;
+                 SwaggerApp.responsecount = 0;
 
-  var SwaggerApp = {};
-  SwaggerApp.paramcount = 0;
-  SwaggerApp.responsecount = 0;
+
 
   $(document).ready (function(){
     function hideMessage() {
@@ -69,9 +71,13 @@
     }
     hideMessage();
 
+
+
         // Add button click handler
         $('#swaggerForm')
           .on('click', '.addParamButton', function() {
+
+
             var $template = $('#parameterTemplate'),
                 $clone    = $template
                                 .clone()
@@ -81,15 +87,15 @@
                 $option   = $clone.find('[name="parameterTemplate[]"]');
 
                 $clone.find("input").each(function(index, element){
-                                             var value = element.id + "_" + SwaggerApp.count;
+                                             var value = element.id + "_" + SwaggerApp.paramcount;
                                              element.setAttribute('id', value);
-                                             console.log(name);
+                                             //.log( value);
                                          });
 
                 $clone.find("select").each(function(index, element){
-                                             var value = element.id + "_" + SwaggerApp.count;
+                                             var value = element.id + "_" + SwaggerApp.paramcount;
                                              element.setAttribute('id', value);
-                                             console.log(name);
+                                             //console.log(name);
                                          });
                 SwaggerApp.paramcount++;
                 $('#paramCount').attr("value", SwaggerApp.paramcount);
@@ -105,15 +111,15 @@
               $option   = $clone.find('[name="responseTemplate[]"]');
 
               $clone.find("input").each(function(index, element){
-                                           var value = element.id + "_" + SwaggerApp.count;
+                                           var value = element.id + "_" + SwaggerApp.responsecount;
                                            element.setAttribute('id', value);
-                                           console.log(name);
+                                           //console.log(value);
                                        });
 
               $clone.find("select").each(function(index, element){
-                                           var value = element.id + "_" + SwaggerApp.count;
+                                           var value = element.id + "_" + SwaggerApp.responsecount;
                                            element.setAttribute('id', value);
-                                           console.log(name);
+                                           //console.log(value);
                                        });
               SwaggerApp.responsecount++;
               $('#responseCount').attr("value", SwaggerApp.responsecount);

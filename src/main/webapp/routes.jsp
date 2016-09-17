@@ -46,29 +46,66 @@
     <script src='swaggerui/lib/jsoneditor.min.js' type='text/javascript'></script>
     <script src='swaggerui/lib/marked.js' type='text/javascript'></script>
     <script src='swaggerui/lib/swagger-oauth.js' type='text/javascript'></script>
+    <script>
 
+    </script>
     <script src="js/swaggerLoad.js"></script>
     <script src="js/aceLoad.js"></script>
+
   </head>
 
   <body>
 
-    <nav class="navbar navbar-default">
+<div class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
       <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+        </button>
         <a class="navbar-brand" href="${pageContext.request.contextPath}/">URL Routing Utility</a>
+
       </div>
 
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-left">
           <li><a href="#listPath" aria-controls="listPath" role="tab" data-toggle="tab">Paths</a></li>
           <li><a href="#" data-toggle="modal" data-target="#myModal">New Route</a></li>
 
-          <li><a href="#collapseSwagger" aria-controls="collapseSwagger"
-                  role="tab" data-toggle="tab">Swagger</a></li>
+          <li><a href="#" aria-controls="collapseSwagger"
+                  role="tab" data-toggle="tab" data-target="#collapseSwagger">Swagger</a></li>
 
-          <li><a href="#collapseConfigMenu" aria-controls="collapseConfigMenu"
-                  role="collapse" data-toggle="collapse">Config</a></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+              aria-haspopup="true" aria-expanded="false">Config<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                            <a href='#' data-toggle="modal" data-target="#swaggerRoute">
+                              Add Path Information
+                            </a>
+                            </li><li>
+                            <a href='#'
+                            data-toggle="modal" data-target="#swaggerSchema">
+                              Add Parameter Schema Definitions
+                            </a>
+                            </li><li>
+                            <a href='#'
+                            data-toggle="modal" data-target="#swaggerResponse">
+                              Add Response Definitions
+                            </a>
+                            </li><li>
+                            <a href='#'
+                            data-toggle="modal" data-target="#swaggerTag">
+                              Add Tag Information
+                            </a>
+                  </li>
+              </ul>
+          </li>
 
           <!--li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li-->
           <!--li><a href="${pageContext.request.contextPath}/swagger" >Swagger</a></li-->
@@ -87,9 +124,9 @@
           <span class="glyphicon glyphicon-search"></span> Search</button>
         </form>
       </div>
-      </div>
-    </nav>
 
+      </div>
+    </div>
 
     <%@ include file="./_addTagDesc.jsp" %>
 
@@ -104,26 +141,6 @@
 
     <div class="container">
 
-      <div class="collapse" id="collapseConfigMenu">
-
-        <div class="well">
-          <a class="btn btn-primary" role="button" data-toggle="modal" data-target="#swaggerRoute">
-            Add Path Information
-          </a>
-          <a class="btn btn-primary" role="button"
-          data-toggle="modal" data-target="#swaggerSchema">
-            Add Parameter Schema Definitions
-          </a>
-          <a class="btn btn-primary" role="button"
-          data-toggle="modal" data-target="#swaggerResponse">
-            Add Response Definitions
-          </a>
-          <a class="btn btn-primary" role="button"
-          data-toggle="modal" data-target="#swaggerTag">
-            Add Tag Information
-          </a>
-        </div>
-      </div>
 
       <c:if test="${not empty message}">
         <div class="alert alert-success fade in messages" >
@@ -176,8 +193,9 @@
 
       <div class="panel panel-primary">
       <div class="panel-heading">List Configured Routes</div>
+
       <c:choose>
-        <c:when test="${not empty routeList}">
+        <c:when test="${not empty paths.paths}">
           <table  class="table table-striped">
             <thead >
               <tr class="info">
@@ -187,7 +205,7 @@
                 <td>Query Params</td-->
               </tr>
                 </thead>
-                <c:forEach var="route" items="${routeList}" varStatus="index">
+                <c:forEach var="route" items="${paths.paths}" varStatus="index">
                   <tr>
                     <td class="col-sm-1">${index.count}</td>
                     <td class="col-sm-14">

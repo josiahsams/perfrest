@@ -34,6 +34,7 @@ public class RouteServlet  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ForwardPath> routeList = new ArrayList<ForwardPath>();
+        Forward fobj = null;
         try {
 
             InputStream is = getServletContext().getResourceAsStream("/WEB-INF/forward.json");
@@ -47,7 +48,7 @@ public class RouteServlet  extends HttpServlet {
             }
 
             ObjectMapper obj = Json.mapper();
-            Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
+            fobj = obj.readValue(jsonTxt.toString(), Forward.class);
 
 
             for (ForwardPath path: fobj.getPaths()) {
@@ -69,6 +70,8 @@ public class RouteServlet  extends HttpServlet {
         String nextJSP = "/routes.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("routeList", routeList);
+        if (fobj != null)
+            req.setAttribute("paths", fobj);
         dispatcher.forward(req, resp);
 
     }
