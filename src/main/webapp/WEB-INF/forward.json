@@ -26,7 +26,13 @@
             {
               "name": "param1",
               "in": "path",
-              "description": "Input Parameter description",
+              "description": "Input Parameter 1 description",
+              "required": true
+            },
+            {
+              "name": "param2",
+              "in": "path",
+              "description": "Input Parameter 2 description",
               "required": true
             }
           ],
@@ -60,7 +66,13 @@
             {
               "name": "param1",
               "in": "path",
-              "description": "Input Parameter description",
+              "description": "Input Parameter 1 description",
+              "required": true
+            },
+            {
+              "name": "param2",
+              "in": "path",
+              "description": "Input Parameter 2 description",
               "required": true
             }
           ],

@@ -12,7 +12,7 @@
 
           <div class="modal-body">
 
-            <form id="swaggerResponseForm" action="#" method="post"  role="form"
+            <form id="swaggerResponseForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
                 data-toggle="validator" class="form-horizontal">
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>

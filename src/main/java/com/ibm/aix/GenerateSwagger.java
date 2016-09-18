@@ -287,12 +287,19 @@ public class GenerateSwagger extends HttpServlet {
 //
 //        // ObjectNode objNode = (ObjectNode)mapper.readTree(swaggerJson);
 //
-        ObjectNode defnObjNode = (ObjectNode)obj.readTree(defn);
+        //ObjectNode defnObjNode = (ObjectNode)obj.readTree(defn);
+
+        String defnFromJson = obj.writeValueAsString(fobj.getDefinitions());
+
+        ObjectNode defnObjNode = (ObjectNode)obj.readTree(defnFromJson);
 
         ObjectNode swaggerObjNode = (ObjectNode)obj.readTree(swaggerJson);
 
-        ObjectNode tagsDefnObjNode = (ObjectNode)obj.readTree(tagsDefn);
+        String tagsFromJson = "{\"tags\":"+obj.writeValueAsString(fobj.getTags())+"}";
 
+        //ObjectNode tagsDefnObjNode = (ObjectNode)obj.readTree(tagsDefn);
+
+        ObjectNode tagsDefnObjNode = (ObjectNode)obj.readTree(tagsFromJson);
 
         swaggerObjNode.set("definitions", defnObjNode);
         swaggerObjNode.set("tags", tagsDefnObjNode.get("tags"));

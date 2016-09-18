@@ -10,7 +10,7 @@
 
           <div class="modal-body">
 
-            <form id="swaggerSchemaForm" action="#" method="post"  role="form"
+            <form id="swaggerSchemaForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
                 data-toggle="validator" class="form-horizontal">
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>

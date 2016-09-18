@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.aix.Forward;
 import com.ibm.aix.ForwardPath;
 import com.ibm.aix.Helpers;
+import io.swagger.util.Json;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.RequestDispatcher;
@@ -46,6 +47,8 @@ public class ProxyServlet extends HttpServlet
 
         Pattern p = Pattern.compile("(\\{\\w+\\})");
         ForwardPath selectedPath = new ForwardPath();
+        ObjectMapper obj = Json.mapper();
+        Forward fobj = null;
         try {
 
             InputStream is = getServletContext().getResourceAsStream("/WEB-INF/forward.json");
@@ -58,8 +61,9 @@ public class ProxyServlet extends HttpServlet
                 jsonTxt.append(line);
             }
 
-            ObjectMapper obj = new ObjectMapper();
-            Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
+            //ObjectMapper obj = new ObjectMapper();
+
+            fobj = obj.readValue(jsonTxt.toString(), Forward.class);
 
 
             for (ForwardPath path : fobj.getPaths()) {
@@ -90,6 +94,10 @@ public class ProxyServlet extends HttpServlet
             String nextJSP = "/routes.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
             req.setAttribute("routeList", routeList);
+            if (fobj != null)
+                req.setAttribute("paths", fobj);
+
+            req.setAttribute("obj", obj);
             dispatcher.include(req, resp);
             return;
         }
@@ -240,6 +248,10 @@ public class ProxyServlet extends HttpServlet
         String nextJSP = "/routes.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("routeList", routeList);
+        if (fobj != null)
+            req.setAttribute("paths", fobj);
+
+        req.setAttribute("obj", obj);
         dispatcher.include(req, resp);
 
 //        try {

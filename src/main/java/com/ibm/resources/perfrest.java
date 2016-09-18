@@ -22,6 +22,7 @@ import com.ibm.aix.*;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import io.swagger.util.Json;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -136,7 +137,7 @@ public class perfrest {
 
             System.out.println(uri.toString());
 
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = Json.mapper();
             String body = mapper.writeValueAsString(input);
 
             //return Response.temporaryRedirect(uri).build();
@@ -169,7 +170,7 @@ public class perfrest {
                 jsonTxt.append(line);
             }
 
-            ObjectMapper obj = new ObjectMapper();
+            ObjectMapper obj = Json.mapper();
             Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
 
 

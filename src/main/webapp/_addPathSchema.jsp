@@ -10,8 +10,12 @@
 
           <div class="modal-body">
 
-            <form id="swaggerForm" action="/routes" method="post"  role="form"
-                data-toggle="validator" class="form-horizontal">
+            <form id="swaggerForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
+                data-toggle="validator" class="form-horizontal multipage">
+
+                  <fieldset id="page_one">
+                  <legend>Basic Information</legend>
+
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>
               </c:if>
@@ -69,14 +73,17 @@
 
               <div class="form-group ">
                 <label for="tag" class="control-label col-sm-2">Operation Type:</label>
-                <div class="col-sm-4">
+                <div class="col-sm-8">
                   <select class="form-control" id="tag">
-                  <option>perf</option>
-                  <option>config</option>
+                    <c:forEach var="tg" items="${paths.getTags()}" varStatus="tag_index">
+                      <option value="${tag_index.count}">${tg.getName()} - <small>${tg.getDescription()}</small></option>
+                    </c:forEach>
                   </select>
                 </div>
               </div>
-
+      </fieldset>
+      <fieldset id="page_two">
+        <legend>More Information</legend>
               <div class="form-group">
                 <label for="operationId" class="control-label col-sm-2">operationId:</label>
                 <div class="col-sm-8">
@@ -109,7 +116,9 @@
                   </select>
                 </div>
               </div>
-              <hr/>
+              </fieldset>
+                <fieldset id="page_three">
+                <legend>Add Parameter Definition</legend>
               <div class="hide" id="parameterTemplate">
                 <div class="form-group">
                   <label for="paramName" class="control-label col-sm-2">Name:</label>
@@ -157,20 +166,9 @@
                 <div class="form-group">
                   <label for="paramSchema" class="control-label col-sm-2">Schema:</label>
                   <div class="col-sm-8">
-                    <script  type="text/javascript">
-                      function showParamSchema(sel) {
-                          _id = sel.value;
-                          console.log("look for paramSchemaDetails_"+_id);
-                          $("[id^=paramSchemaDetails_]").each(function() {
-                            $(this).css("display", "none");;
-                            });
-
-                          document.getElementById("paramSchemaDetails_"+_id).style.display = "";
-
-                      }
-                    </script>
-                      <select class="form-control" id="paramSchema"
-                        onchange="showParamSchema(this);">
+                      <select class="form-control" id="paramSchema" messageSuffix="paramSchemaDetails"
+                        onchange="showSchema(this);">
+                        <option value="0">No Schema</option>
                         <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_index">
                           <option value="${ps_index.count}">#/definitions/${defn.getKey()}</option>
                         </c:forEach>
@@ -182,8 +180,8 @@
                   <label class="control-label col-sm-2"></label>
                   <div class="col-sm-8">
                     <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_mesgIndex">
-                      <div class="well" id="paramSchemaDetails_${ps_mesgIndex.count}" style="display: none">
-                          ${defn.value}
+                      <div  id="${ps_mesgIndex.count}_paramSchemaDetails" style="display: none">
+                      <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.getValue())}</pre>
                      </div>
 
                     </c:forEach>
@@ -202,13 +200,15 @@
                 </div>
               </div>
 
-              <div class="form-group"><label  class="control-label col-sm-2"></label>
+              <div class="form-group"><label  class="control-label col-sm-2">Parameter: </label>
                 <div class="col-sm-8">
                   <button type="button" class="btn btn-default addParamButton">Add Parameter</button>
                 </div>
               </div>
 
-              <hr/>
+              </fieldset>
+                <fieldset id="page_four">
+                <legend>Add Response Definition</legend>
               <div class="hide" id="responseTemplate">
 
                 <div class="form-group">
@@ -250,20 +250,9 @@
                 <div class="form-group">
                   <label for="responseSchema" class="control-label col-sm-2">Schema:</label>
                   <div class="col-sm-8">
-                    <script  type="text/javascript">
-                      function showResponseSchema(sel) {
-                          _id = sel.value;
-                          console.log("look for paramResponseDetails_"+_id);
-                          $("[id^=paramResponseDetails_]").each(function() {
-                            $(this).css("display", "none");;
-                            });
-
-                          document.getElementById("paramResponseDetails_"+_id).style.display = "";
-
-                      }
-                    </script>
-                    <select class="form-control" id="ResponseSchema"
-                      onchange="showResponseSchema(this);">
+                    <select class="form-control" id="ResponseSchema" messageSuffix="paramResponseDetails"
+                      onchange="showSchema(this);">
+                      <option value="0">No Schema</option>
                       <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_index">
                         <option value="${rs_index.count}">#/definitions/${resp.getKey()}</option>
                       </c:forEach>
@@ -276,8 +265,8 @@
                 <label class="control-label col-sm-2"></label>
                 <div class="col-sm-8">
                   <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_mesgIndex">
-                    <div class="well" id="paramResponseDetails_${rs_mesgIndex.count}" style="display: none">
-                        ${resp.value}
+                    <div id="${rs_mesgIndex.count}_paramResponseDetails" style="display: none">
+                      <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.getValue())}</pre>
                    </div>
 
                   </c:forEach>
@@ -289,17 +278,25 @@
 
 
 
-              <div class="form-group"><label  class="control-label col-sm-2"></label>
+              <div class="form-group"><label  class="control-label col-sm-2">Response: </label>
                 <div class="col-sm-8">
                   <button type="button" class="btn btn-default addResponseButton">Add Response</button>
                 </div>
               </div>
+
+
+
+
+              </fieldset>
+            <input type="submit" value="Save Changes" />
+
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!--div class="modal-footer">
+            <button type="button" class="btn btn-default"
+              data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
+          </div-->
 
 
         </div>

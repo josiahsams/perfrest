@@ -99,7 +99,7 @@ public class Helpers {
                 jsonTxt.append(line);
             }
 
-            ObjectMapper obj = new ObjectMapper();
+            ObjectMapper obj = Json.mapper();
             Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
 
 

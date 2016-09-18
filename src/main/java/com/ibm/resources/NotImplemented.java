@@ -3,39 +3,45 @@ package com.ibm.resources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.aix.Forward;
 import com.ibm.aix.ForwardPath;
-import com.ibm.aix.ForwardRouteInfo;
+import io.swagger.util.Json;
 
 import javax.servlet.RequestDispatcher;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import com.ibm.aix.Helpers;
-import io.swagger.util.Json;
 
 /**
- * Created by joe on 9/5/16.
+ * Created by joe on 9/18/16.
  */
 @WebServlet(
-        name = "RouteServlet",
-        urlPatterns = {"/routes"}
+        name = "NotImplemented",
+        urlPatterns = {"/default"}
 )
-public class RouteServlet  extends HttpServlet {
-
+public class NotImplemented extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        handleRequest(req, resp);
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        handleRequest(req, resp);
+
+    }
+
+    private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         List<ForwardPath> routeList = new ArrayList<ForwardPath>();
         ObjectMapper obj = Json.mapper();
-
         Forward fobj = null;
         try {
 
@@ -56,7 +62,7 @@ public class RouteServlet  extends HttpServlet {
             for (ForwardPath path: fobj.getPaths()) {
                 String pathstr = path.getRoute();
                 routeList.add(path);
-               // System.out.println(pathstr);
+                // System.out.println(pathstr);
 
             }
             is.close();
@@ -75,45 +81,11 @@ public class RouteServlet  extends HttpServlet {
         if (fobj != null)
             req.setAttribute("paths", fobj);
 
-        req.setAttribute("obj", obj);
-        dispatcher.forward(req, resp);
-
-    }
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        String action = req.getParameter("action");
-
-        if (action.equals("add")) {
-
-            addRoute(req, resp);
-
-        }
-
-    }
-
-    private void addRoute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        String pathName = req.getParameter("path");
-
-        System.out.println("New Route is " + pathName);
-
-        // Employee employee = new Employee(name, lastName, birthday, role, department, email);
-        // long idEmployee = employeeService.addEmployee(employee);
-
-        String message = "The new route (" + pathName + ") has been successfully created.";
+        String message = "<b>Mock Operation Performed. " +
+                "Complete Implementation is pending ...</b>";
         req.setAttribute("message", message);
 
-        List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
-
-        String nextJSP = "/routes.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("routeList", routeList);
+        req.setAttribute("obj", obj);
         dispatcher.forward(req, resp);
     }
-
-
-
 }
-

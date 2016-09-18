@@ -5,6 +5,7 @@
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="url">${req.requestURL}</c:set>
 <c:set var="uri" value="${req.requestURI}" />
+<c:set var="root" value="#{request.contextPath}/perfrest/" />
 <html>
   <head>
 
@@ -16,11 +17,11 @@
 
     <link rel="icon" type="swaggerui/image/png" href="images/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="swaggerui/image/png" href="images/favicon-16x16.png" sizes="16x16" />
-    <link href='swaggerui/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
-    <link href='swaggerui/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
-    <link href='swaggerui/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
-    <link href='swaggerui/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
-    <link href='swaggerui/css/print.css' media='print' rel='stylesheet' type='text/css'/>
+    <link href='${root}/swaggerui/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+    <link href='${root}/swaggerui/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+    <link href='${root}/swaggerui/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+    <!--link href='${root}/swaggerui/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+    <link href='${root}/swaggerui/css/print.css' media='print' rel='stylesheet' type='text/css'/-->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -30,27 +31,29 @@
    <!-- Optional theme -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js"></script>
+    <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" ></script>
 
-    <script src='swaggerui/lib/object-assign-pollyfill.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/jquery.slideto.min.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/jquery.wiggle.min.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/handlebars-4.0.5.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/lodash.min.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/backbone-min.js' type='text/javascript'></script>
-    <script src='swaggerui/swagger-ui.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/highlight.9.1.0.pack.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/highlight.9.1.0.pack_extended.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/jsoneditor.min.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/marked.js' type='text/javascript'></script>
-    <script src='swaggerui/lib/swagger-oauth.js' type='text/javascript'></script>
-    <script>
+    <script src='${root}/swaggerui/lib/object-assign-pollyfill.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/jquery.slideto.min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/jquery.wiggle.min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/handlebars-4.0.5.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/lodash.min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/backbone-min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/swagger-ui.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/highlight.9.1.0.pack.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/highlight.9.1.0.pack_extended.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/jsoneditor.min.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/marked.js' type='text/javascript'></script>
+    <script src='${root}/swaggerui/lib/swagger-oauth.js' type='text/javascript'></script>
 
-    </script>
-    <script src="js/swaggerLoad.js"></script>
-    <script src="js/aceLoad.js"></script>
+    <script type="text/javascript" src="${root}/js/multipage.js"></script>
+    <link rel="stylesheet" href="${root}/css/multipage.css"  type='text/css' />
+
+    <script src="${root}/js/swaggerLoad.js" type="text/javascript"></script>
+    <script src="${root}/js/aceLoad.js" type="text/javascript" ></script>
+
 
   </head>
 
