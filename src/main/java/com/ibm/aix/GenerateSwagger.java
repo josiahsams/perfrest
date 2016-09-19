@@ -108,7 +108,7 @@ public class GenerateSwagger extends HttpServlet {
 
         final Info info = new Info()
                 .version("1.0.0")
-                .title("Swagger Petstore");
+                .title("Performance APIs");
 
         final Contact contact = new Contact()
                 .name("IBM AIX Performance Tools")

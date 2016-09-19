@@ -173,7 +173,7 @@
                         onchange="showSchema(this);">
                         <option value="0">No Schema</option>
                         <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_index">
-                          <option value="${ps_index.count}">#/definitions/${defn.getKey()}</option>
+                          <option value="${ps_index.count}">#/definitions/${defn.key}</option>
                         </c:forEach>
                       </select>
 
@@ -185,7 +185,7 @@
                   <div class="col-sm-8">
                     <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_mesgIndex">
                       <div  id="${ps_mesgIndex.count}_paramSchemaDetails" style="display: none">
-                      <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.getValue())}</pre>
+			<pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.value)}</pre>
                      </div>
 
                     </c:forEach>
@@ -260,7 +260,7 @@
                       onchange="showSchema(this);">
                       <option value="0">No Schema</option>
                       <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_index">
-                        <option value="${rs_index.count}">#/definitions/${resp.getKey()}</option>
+			<option value="${rs_index.count}">#/definitions/${resp.key}</option>
                       </c:forEach>
                     </select>
                 </div>
@@ -272,7 +272,7 @@
                 <div class="col-sm-8">
                   <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_mesgIndex">
                     <div id="${rs_mesgIndex.count}_paramResponseDetails" style="display: none">
-                      <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.getValue())}</pre>
+			<pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.value)}</option>
                    </div>
 
                   </c:forEach>
