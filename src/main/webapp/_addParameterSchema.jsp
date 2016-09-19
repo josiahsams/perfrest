@@ -8,10 +8,11 @@
             <h4 class="modal-title" id="swaggerSchemaLabel">Configure an Input/Output Parameter Schema Definitions in JSON format </h4>
           </div>
 
+          <form id="swaggerSchemaForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
+                data-toggle="validator" class="form-horizontal">
           <div class="modal-body">
 
-            <form id="swaggerSchemaForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
-                data-toggle="validator" class="form-horizontal">
+
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>
               </c:if>
@@ -32,22 +33,23 @@
               <div class="form-group ">
                 <label for="schemaDefn" class="control-label col-sm-2">Schema : </label>
                 <div class="col-sm-8">
-                  <textarea name="schemaDefn" data-editor="json" rows="15" style="width:600px; height:200px;"
-                    class="form-control" required="true"  aria-describedby="basic-addon3"
+                  <textarea name="schemaDefn" id="schemaDefn" data-editor="json" rows="15"
+                    style="width:600px; height:200px;"
+                    class="form-control"  aria-describedby="basic-addon3"
                     placeholder="Enter the Schema Definition"></textarea>
                 </div>
               </div>
 
 
 
-            </form>
+
 
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
-
+          </form>
 
         </div>
       </div>

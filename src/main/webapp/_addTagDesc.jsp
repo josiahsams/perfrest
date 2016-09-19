@@ -7,11 +7,11 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="swaggerTagLabel">Configure a Tag Description </h4>
           </div>
-
+          <form id="swaggerTagForm" action="${pageContext.request.contextPath}/default" method="get"  role="form"
+                          data-toggle="validator" class="form-horizontal">
           <div class="modal-body">
 
-            <form id="swaggerTagForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
-                data-toggle="validator" class="form-horizontal">
+
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>
               </c:if>
@@ -22,7 +22,7 @@
                 <div class="col-sm-8">
                   <input type="text" name="tagName" id="tagName" class="form-control"
                   value=""
-                  required="true"  aria-describedby="basic-addon3"
+                  required
                   placeholder="Enter unique Tag Name"/>
                 </div>
               </div>
@@ -32,18 +32,18 @@
                 <div class="col-sm-8">
                   <input type="text" name="tagName" id="tagDesc" class="form-control"
                   value=""
-                  required="true"  aria-describedby="basic-addon3"
+                  required aria-describedby="basic-addon3"
                   placeholder="Enter Tag Description"/>
                 </div>
               </div>
-            </form>
+
 
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
-
+          </form>
 
         </div>
       </div>

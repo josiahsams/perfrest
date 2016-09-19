@@ -15,8 +15,8 @@
      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
     </script>
 
-    <link rel="icon" type="swaggerui/image/png" href="images/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="swaggerui/image/png" href="images/favicon-16x16.png" sizes="16x16" />
+    <!--link rel="icon" type="${root}/swaggerui/image/png" href="images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="${root}/swaggerui/image/png" href="images/favicon-16x16.png" sizes="16x16" /-->
     <link href='${root}/swaggerui/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
     <link href='${root}/swaggerui/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
     <link href='${root}/swaggerui/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
@@ -46,7 +46,7 @@
     <script src='${root}/swaggerui/lib/highlight.9.1.0.pack_extended.js' type='text/javascript'></script>
     <script src='${root}/swaggerui/lib/jsoneditor.min.js' type='text/javascript'></script>
     <script src='${root}/swaggerui/lib/marked.js' type='text/javascript'></script>
-    <script src='${root}/swaggerui/lib/swagger-oauth.js' type='text/javascript'></script>
+    <!--script src='${root}/swaggerui/lib/swagger-oauth.js' type='text/javascript'></script-->
 
     <script type="text/javascript" src="${root}/js/multipage.js"></script>
     <link rel="stylesheet" href="${root}/css/multipage.css"  type='text/css' />

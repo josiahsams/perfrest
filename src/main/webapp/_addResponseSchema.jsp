@@ -9,11 +9,11 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="swaggerResponseLabel">Configure a Response Schema Definitions in JSON format </h4>
           </div>
-
+          <form id="swaggerResponseForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
+                          data-toggle="validator" class="form-horizontal">
           <div class="modal-body">
 
-            <form id="swaggerResponseForm" action="${pageContext.request.contextPath}/default" method="post"  role="form"
-                data-toggle="validator" class="form-horizontal">
+
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>
               </c:if>
@@ -37,20 +37,20 @@
                   <textarea name="responseschemaDefn" data-editor="json" rows="15"
                   id="textarea-response"
                   class="form-control" style="width:600px; height:200px; "
-                  required="true"  aria-describedby="basic-addon3"></textarea>
+                  aria-describedby="basic-addon3"></textarea>
                 </div>
               </div>
 
 
 
-            </form>
+
 
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
-
+          </form>
 
         </div>
       </div>
