@@ -119,6 +119,7 @@
               </fieldset>
                 <fieldset id="page_three">
                 <legend>Add Parameter Definition</legend>
+
               <div class="hide" id="parameterTemplate">
                 <div class="form-group">
                   <label for="paramName" class="control-label col-sm-2">Name:</label>
@@ -160,7 +161,9 @@
                     <label class="radio-inline">
                       <input type="radio" name="paramSchemaType">$ref
                     </label>
+                    <span id="parSchHelpBlock" class="help-block">All types other than 'String' type needs Schema</span>
                     </div>
+
                   </div>
 
                 <div class="form-group">
@@ -173,6 +176,7 @@
                           <option value="${ps_index.count}">#/definitions/${defn.getKey()}</option>
                         </c:forEach>
                       </select>
+
                   </div>
                 </div>
 
@@ -202,7 +206,8 @@
 
               <div class="form-group"><label  class="control-label col-sm-2">Parameter: </label>
                 <div class="col-sm-8">
-                  <button type="button" class="btn btn-default addParamButton">Add Parameter</button>
+                  <button type="button" class="btn btn-default addParamButton" aria-describedby="paramHelpBlock">Add Parameter</button>
+                  <span id="paramHelpBlock" class="help-block"></span>
                 </div>
               </div>
 
@@ -243,6 +248,7 @@
                     <label class="radio-inline">
                       <input type="radio" name="responseSchemaType">$ref
                     </label>
+                    <span id="respSchHelpBlock" class="help-block">All types other than 'String' type needs Schema</span>
                     </div>
                   </div>
 

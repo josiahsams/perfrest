@@ -13,6 +13,7 @@
             textarea.css('visibility', 'hidden');
             var editor = ace.edit(editDiv[0]);
             editor.renderer.setShowGutter(false);
+            editor.$blockScrolling = "Infinity";
             editor.setDisplayIndentGuides(true);
             editor.setShowPrintMargin(true);
             editor.setHighlightActiveLine(true);
@@ -36,7 +37,7 @@
 
 
 
-            editor.getSession().setValue("{\"tags\":[{\"name\":\"perf\",\"description\":\"APIs to get Performance Metrics\"},{\"name\":\"config\",\"description\":\"APIs to get Configuration Metrics\"}]}");
+            editor.getSession().setValue("{\"InputFormat\":{\"type\":\"object\",\"properties\":{\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}}");
             editor.getSession().setMode("ace/mode/" + mode);
             editor.setTheme("ace/theme/eclipse");
             var val = editor.session.getValue()

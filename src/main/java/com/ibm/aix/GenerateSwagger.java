@@ -111,9 +111,9 @@ public class GenerateSwagger extends HttpServlet {
                 .title("Swagger Petstore");
 
         final Contact contact = new Contact()
-                .name("Swagger API Team")
-                .email("foo@bar.baz")
-                .url("http://swagger.io");
+                .name("IBM AIX Performance Tools")
+                .email("aix@ibm.com")
+                .url("http://wwww.ibm.com");
 
         info.setContact(contact);
 
@@ -131,9 +131,10 @@ public class GenerateSwagger extends HttpServlet {
 
         Tag tag1 = new Tag().name("perf").description("API to retrieve Perf Metrics");
 
-        final Swagger swagger = new Swagger().basePath("/proxy")
+        //System.out.println("Context name is "+ req.getContextPath());
+        final Swagger swagger = new Swagger().basePath(req.getContextPath()+"/proxy")
                 .info(info)
-                .host("petstore.swagger.io")
+                //.host("api.ibm.com")
 //                .securityDefinition("api-key", new ApiKeyAuthDefinition("key", In.HEADER))
                 .scheme(Scheme.HTTP).tag(tag1)
                 .consumes("application/json"); // .model("lpar", lparModel)

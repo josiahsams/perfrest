@@ -79,91 +79,110 @@ function showSchema(sel) {
 }
 
 
-  $(document).ready (function(){
-    function hideMessage() {
-      setTimeout(function(){
-        $(".messages").slideUp(1000);
-        $(".errormessages").slideUp(1000);
-        hideMessage();
-       }, 30000);
+$(document).ready (function(){
+  function hideMessage() {
+    setTimeout(function(){
+      $(".messages").slideUp(1000);
+      $(".errormessages").slideUp(1000);
+      hideMessage();
+     }, 30000);
+  }
+  hideMessage();
+
+  $('.multipage').multipage({
+  "submitLabel": "Save Changes","hideLegend": false,"hideSubmit": true
+  });
+
+  var oldParamCount = 0;
+  var listPathParameters = [];
+  $('#route').on('keyup', function() {
+    var textValue = this.value;
+
+    if (textValue.length > 1) {
+      var listPathParameters = textValue.match(/\{([^}]+)\}/g);
+
+      if (listPathParameters != null && oldParamCount != listPathParameters.length) {
+        $("#paramHelpBlock").html("Hint: There are "+listPathParameters.length+" parameters <b>( ");
+
+        for (var i = 0; i < listPathParameters.length; i++) {
+          oldParamCount = listPathParameters.length;
+          var paramName = listPathParameters[i].replace("{","").replace("}", "");
+          $("#paramHelpBlock").append(paramName+", ");
+        }
+        $("#paramHelpBlock").append(" )</b> configured in the path. <br>Make sure to add describe it by add new parameters button.");
+      }
     }
-    hideMessage();
+  });
+
+  // Add button click handler
+  $('#swaggerForm')
+    .on('click', '.addParamButton', function() {
 
 
-          $('.multipage').multipage({
-          "submitLabel": "Save Changes","hideLegend": false,"hideSubmit": true
-          });
+      var $template = $('#parameterTemplate'),
+          $clone    = $template
+                          .clone()
+                          .removeClass('hide')
+                          .removeAttr('id')
+                          .insertBefore($template),
+          $option   = $clone.find('[name="parameterTemplate[]"]');
+
+          $clone.find("input").each(function(index, element){
+             var value = element.id + "_" + SwaggerApp.paramcount;
+             element.setAttribute('id', value);
+             //.log( value);
+         });
+
+          $clone.find("select").each(function(index, element){
+             var value = element.id + "_" + SwaggerApp.paramcount;
+              var newmessageSuffix = $(element).attr('messageSuffix')
+                   + "_" + SwaggerApp.paramcount;
+
+             element.setAttribute('id', value);
+             element.setAttribute('messageSuffix', newmessageSuffix);
+             //console.log(name);
+         });
+         $clone.find("[id$=paramSchemaDetails]").each(function() {
+           var newId = $(this).attr("id") + "_" + SwaggerApp.paramcount;
+           $(this).attr("id", newId);;
+         });
+          SwaggerApp.paramcount++;
+          $('#paramCount').attr("value", SwaggerApp.paramcount);
+
+    })
+    .on('click', '.addResponseButton', function() {
+      var $template = $('#responseTemplate'),
+        $clone    = $template
+                        .clone()
+                        .removeClass('hide')
+                        .removeAttr('id')
+                        .insertBefore($template),
+        $option   = $clone.find('[name="responseTemplate[]"]');
+
+        $clone.find("input").each(function(index, element){
+             var value = element.id + "_" + SwaggerApp.responsecount;
+             element.setAttribute('id', value);
+             //console.log(value);
+         });
 
 
-        // Add button click handler
-        $('#swaggerForm')
-          .on('click', '.addParamButton', function() {
+        $clone.find("select").each(function(index, element){
+           var value = element.id + "_" + SwaggerApp.responsecount;
+           var newmessageSuffix = $(element).attr('messageSuffix')
+                + "_" + SwaggerApp.responsecount;
 
+           element.setAttribute('id', value);
+           element.setAttribute('messageSuffix', newmessageSuffix);
 
-            var $template = $('#parameterTemplate'),
-                $clone    = $template
-                                .clone()
-                                .removeClass('hide')
-                                .removeAttr('id')
-                                .insertBefore($template),
-                $option   = $clone.find('[name="parameterTemplate[]"]');
+           console.log(newmessageSuffix);
+       });
+        $clone.find("[id$=paramResponseDetails]").each(function() {
+          var newId = $(this).attr("id") + "_" + SwaggerApp.responsecount;
+          $(this).attr("id", newId);;
+        });
+        SwaggerApp.responsecount++;
+        $('#responseCount').attr("value", SwaggerApp.responsecount);
 
-                $clone.find("input").each(function(index, element){
-                   var value = element.id + "_" + SwaggerApp.paramcount;
-                   element.setAttribute('id', value);
-                   //.log( value);
-               });
-
-                $clone.find("select").each(function(index, element){
-                   var value = element.id + "_" + SwaggerApp.paramcount;
-                    var newmessageSuffix = $(element).attr('messageSuffix')
-                         + "_" + SwaggerApp.paramcount;
-
-                   element.setAttribute('id', value);
-                   element.setAttribute('messageSuffix', newmessageSuffix);
-                   //console.log(name);
-               });
-               $clone.find("[id$=paramSchemaDetails]").each(function() {
-                 var newId = $(this).attr("id") + "_" + SwaggerApp.paramcount;
-                 $(this).attr("id", newId);;
-               });
-                SwaggerApp.paramcount++;
-                $('#paramCount').attr("value", SwaggerApp.paramcount);
-
-        })
-        .on('click', '.addResponseButton', function() {
-          var $template = $('#responseTemplate'),
-              $clone    = $template
-                              .clone()
-                              .removeClass('hide')
-                              .removeAttr('id')
-                              .insertBefore($template),
-              $option   = $clone.find('[name="responseTemplate[]"]');
-
-              $clone.find("input").each(function(index, element){
-                   var value = element.id + "_" + SwaggerApp.responsecount;
-                   element.setAttribute('id', value);
-                   //console.log(value);
-               });
-
-
-              $clone.find("select").each(function(index, element){
-                 var value = element.id + "_" + SwaggerApp.responsecount;
-                 var newmessageSuffix = $(element).attr('messageSuffix')
-                      + "_" + SwaggerApp.responsecount;
-
-                 element.setAttribute('id', value);
-                 element.setAttribute('messageSuffix', newmessageSuffix);
-
-                 console.log(newmessageSuffix);
-             });
-              $clone.find("[id$=paramResponseDetails]").each(function() {
-                var newId = $(this).attr("id") + "_" + SwaggerApp.responsecount;
-                $(this).attr("id", newId);;
-              });
-              SwaggerApp.responsecount++;
-              $('#responseCount').attr("value", SwaggerApp.responsecount);
-
-      })
+    })
 
   });

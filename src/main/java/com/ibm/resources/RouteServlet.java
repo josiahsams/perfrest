@@ -68,7 +68,7 @@ public class RouteServlet  extends HttpServlet {
 //        for(ForwardPath route : routeList) {
 //            System.out.println(route.getRouteInfo().getHost());
 //        }
-
+            String val = "{\"InputFormat\":{\"type\":\"object\",\"properties\":{\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}}";
         String nextJSP = "/routes.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("routeList", routeList);
