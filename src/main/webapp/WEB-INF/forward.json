@@ -128,7 +128,7 @@
             "200": {
               "description": "Return Performance Data",
               "schema": {
-                "ref": "#/definitions/OutputFormat"
+                "$ref": "#/definitions/OutputFormat"
               }
             }
           }
@@ -158,6 +158,62 @@
         "additionalQueryParams" : "name=fixedvalue"
 
       }
+    },
+    {
+      "route": "/doSquare",
+      "routeInfo": {
+        "path": "/doSquare",
+        "scheme": "http",
+        "host": "localhost",
+        "port": "8080",
+        "method": "get",
+        "additionalQueryParams": "name=fixedvalue&param2={param2}"
+      },
+      "swaggerInfo": {
+        "post": {
+          "tags": [
+            "math"
+          ],
+          "operationId": "performSquareOp",
+          "summary": "Perform Square",
+          "description": "Long description about the API method",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "ptr",
+              "in": "body",
+              "description": "Input Parameter 1 description",
+              "required": true,
+              "schema" : {
+                "$ref" : "#/definitions/firstarg"
+              }
+            }
+
+          ],
+          "responses": {
+            "200": {
+              "description": "Return System Configuration",
+              "schema" :{
+                "type" : "array",
+                "items" : {
+                  "$ref": "#/definitions/structabc"
+                }
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "tags" : [
@@ -168,10 +224,25 @@
     {
       "name": "config",
       "description": "APIs to get Configuration Metrics"
+    },
+    {
+      "name": "math",
+      "description": "APIs to perform Math operation"
     }
   ],
   "definitions" : {
     "InputFormat": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LparConfig"
+          }
+        }
+      }
+    },
+    "OutputFormat": {
       "type": "object",
       "properties": {
         "parameters": {
@@ -209,14 +280,45 @@
       "type": "object",
       "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
+          "$ref" : "#/definitions/OneMember"
         },
         "message": {
           "type": "string"
         },
         "fields": {
           "type": "string"
+        }
+      }
+    },
+    "OneMember" : {
+      "type": "integer",
+      "format": "int32"
+    },
+    "firstarg" : {
+      "type" : "object",
+      "properties" : {
+        "firstarg" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/structabc"
+          }
+        }
+      }
+    },
+    "structabc" : {
+      "type" : "object",
+      "properties" : {
+        "a" : {
+          "type": "integer",
+          "format": "int32"
+        },
+        "b" : {
+          "type": "integer",
+          "format": "int32"
+        },
+        "c" : {
+          "type": "integer",
+          "format": "int32"
         }
       }
     }

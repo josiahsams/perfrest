@@ -201,33 +201,26 @@ public class GenerateSwagger extends HttpServlet {
                 for (Parameter param : parameters) {
 
                     String inType = param.getIn();
-                    String paramName = param.getName();
-                    String paramDesc = param.getDescription();
-                    Boolean paramReq = param.getRequired();
+//                    String paramName = param.getName();
+//                    String paramDesc = param.getDescription();
+//                    Boolean paramReq = param.getRequired();
 
 
                     Parameter paramObj = null;
 
                     if ("query".equals(inType)) {
-                        paramObj = new QueryParameter().name(paramName)
-                                .description(paramDesc)
-                                .required(paramReq)
-                                // This app is made to handle only String Property
-                                .property(new StringProperty());
+                        paramObj = Json.mapper().convertValue(param, QueryParameter.class);
 
                     } else if ("header".equals(inType)) {
-                        // Not Implemented
+                        paramObj = Json.mapper().convertValue(param, HeaderParameter.class);
                     } else if ("path".equals(inType)) {
-                        paramObj = new PathParameter()
-                                .name(paramName)
-                                .description(paramDesc)
-                                .property(new StringProperty());
+                        paramObj = Json.mapper().convertValue(param, PathParameter.class);
                     } else if ("formData".equals(inType)) {
-                        // Not Implemented
+                        paramObj = Json.mapper().convertValue(param, FormParameter.class);
                     } else if ("body".equals(inType)) {
-                        // Not Implemented
+                        paramObj = Json.mapper().convertValue(param, BodyParameter.class);
                     } else if ("cookie".equals(inType)) {
-                        // Not Implemented
+                        paramObj = Json.mapper().convertValue(param, CookieParameter.class);
                     }
 
                     if (paramObj != null)
@@ -367,6 +360,7 @@ public class GenerateSwagger extends HttpServlet {
                     result = Json.mapper().convertValue(root, FormParameter.class);
                 } else if ("body".equals(in)) {
                     result = Json.mapper().convertValue(root, BodyParameter.class);
+                    System.out.println("BODY hit");
                 } else if ("cookie".equals(in)) {
                     result = Json.mapper().convertValue(root, CookieParameter.class);
                 }
