@@ -166,8 +166,7 @@
         "scheme": "http",
         "host": "localhost",
         "port": "8080",
-        "method": "get",
-        "additionalQueryParams": "name=fixedvalue&param2={param2}"
+        "method": "get"
       },
       "swaggerInfo": {
         "post": {

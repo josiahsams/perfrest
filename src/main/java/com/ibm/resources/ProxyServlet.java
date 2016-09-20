@@ -151,20 +151,22 @@ public class ProxyServlet extends HttpServlet
                 System.out.println("Key is " + key + " Value is " + userinput.get(key));
             }
 
+            if (getcontentTemplate != null) {
 
-            Matcher m = p.matcher(getcontentTemplate);
-            queryData = getcontentTemplate;
+                Matcher m = p.matcher(getcontentTemplate);
+                queryData = getcontentTemplate;
 
-            while (m.find()) {
-                //System.out.println(m.group());
-                String val1 = m.group().replace("{", "").replace("}", "");
-                //System.out.println(val1);
-                queryData = (queryData.replace(m.group(), userinput.get(val1)));
+                while (m.find()) {
+                    //System.out.println(m.group());
+                    String val1 = m.group().replace("{", "").replace("}", "");
+                    //System.out.println(val1);
+                    queryData = (queryData.replace(m.group(), userinput.get(val1)));
+                }
+
+                queryData = queryData.replaceAll("&", "&amp;");
+                System.out.println(queryData);
             }
-
-            queryData = queryData.replaceAll("&", "&amp;");
-            System.out.println(queryData);
-
+            
             pathData = selectedPath.getRouteInfo().getPath();
             Matcher pathMatcher = p.matcher(pathData);
 
