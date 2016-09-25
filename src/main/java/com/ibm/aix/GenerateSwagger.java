@@ -308,7 +308,7 @@ public class GenerateSwagger extends HttpServlet {
 //        message += swaggerJson;
 //        req.setAttribute("infomessage", message);
 //
-//        String nextJSP = "/routes.jsp";
+//        String nextJSP = "/_routes.jsp";
 //        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 //        req.setAttribute("routeList", routeList);
 //        dispatcher.forward(req, resp);

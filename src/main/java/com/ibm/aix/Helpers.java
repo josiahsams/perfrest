@@ -3,6 +3,7 @@ package com.ibm.aix;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.util.Json;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -85,8 +86,9 @@ public class Helpers {
     }
 
 
-    public static List<ForwardPath> getRouteList(ServletContext context) {
-        List<ForwardPath> routeList = new ArrayList<ForwardPath>();
+    public static Forward getForwards(ServletContext context) {
+        Forward fobj = null;
+
         try {
 
             InputStream is = context.getResourceAsStream("/WEB-INF/forward.json");
@@ -100,24 +102,51 @@ public class Helpers {
             }
 
             ObjectMapper obj = Json.mapper();
-            Forward fobj = obj.readValue(jsonTxt.toString(), Forward.class);
+            fobj = obj.readValue(jsonTxt.toString(), Forward.class);
 
-
-            for (ForwardPath path: fobj.getPaths()) {
-                String pathstr = path.getRoute();
-                routeList.add(path);
-                // System.out.println(pathstr);
-
-            }
             is.close();
 
         } catch (Exception e ) {
             System.err.println(e);
         }
 
-        for(ForwardPath route : routeList) {
-            System.out.println(route.getRouteInfo().getHost());
-        }
-        return routeList;
+        return fobj;
     }
+
+    public static List<String> listPCMLFiles(ServletContext context) {
+        List<String> fileList = new ArrayList<String>();
+
+        for (String ot : context.getResourcePaths("/WEB-INF/pcml/")) {
+            String[] splitPath = ot.split("/");
+            int len = splitPath.length;
+            String pathWithExt = splitPath[len -1];
+            fileList.add(pathWithExt.substring(0,pathWithExt.length()-5));
+        }
+        return fileList;
+    }
+
+    public static PCML loadPCML(String libraryName, ServletContext context) {
+        ObjectMapper obj = Json.mapper();
+
+        PCML pobj = null;
+        try {
+            InputStream is = context.getResourceAsStream("/WEB-INF/pcml/"+libraryName+".json");
+            BufferedReader r = new BufferedReader(new InputStreamReader(is));
+
+            StringBuilder jsonTxt = new StringBuilder();
+
+            String line = "";
+            while((line = r.readLine()) != null) {
+                jsonTxt.append(line);
+            }
+
+            pobj = obj.readValue(jsonTxt.toString(), PCML.class);
+
+            is.close();
+        } catch (Exception e ) {
+            System.err.println(e);
+        }
+        return pobj;
+    }
+
 }

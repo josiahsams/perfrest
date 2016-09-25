@@ -75,17 +75,17 @@ public class NotImplemented extends HttpServlet{
 //            System.out.println(route.getRouteInfo().getHost());
 //        }
 
-        String nextJSP = "/routes.jsp";
+        String nextJSP = "/main";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("routeList", routeList);
-        if (fobj != null)
-            req.setAttribute("paths", fobj);
+//        req.setAttribute("routeList", routeList);
+//        if (fobj != null)
+//            req.setAttribute("paths", fobj);
 
         String message = "<b>Mock Operation Performed. " +
                 "Complete Implementation is pending ...</b>";
         req.setAttribute("message", message);
 
-        req.setAttribute("obj", obj);
+//        req.setAttribute("obj", obj);
         dispatcher.forward(req, resp);
     }
 }

@@ -80,6 +80,16 @@ function showSchema(sel) {
 
 
 $(document).ready (function(){
+
+  $('.libraryList').on('click', function() {
+    var lib = this.id;
+    console.log("Clicked item is " + this.id);
+    $.cookie("library", lib, { expires : 1, path : '/perfrest' });
+    $("#collapseCFuncForm").submit();
+    //window.location.href = "/perfrest/main";
+
+  });
+
   function hideMessage() {
     setTimeout(function(){
       $(".messages").slideUp(1000);

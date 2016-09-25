@@ -185,7 +185,7 @@
                   <div class="col-sm-8">
                     <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_mesgIndex">
                       <div  id="${ps_mesgIndex.count}_paramSchemaDetails" style="display: none">
-			<pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.value)}</pre>
+			                  <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.value)}</pre>
                      </div>
 
                     </c:forEach>
@@ -260,7 +260,7 @@
                       onchange="showSchema(this);">
                       <option value="0">No Schema</option>
                       <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_index">
-			<option value="${rs_index.count}">#/definitions/${resp.key}</option>
+			                  <option value="${rs_index.count}">#/definitions/${resp.key}</option>
                       </c:forEach>
                     </select>
                 </div>

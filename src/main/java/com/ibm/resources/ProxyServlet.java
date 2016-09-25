@@ -13,10 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import java.io.*;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -89,16 +86,16 @@ public class ProxyServlet extends HttpServlet
             String message = "<b>URL pattern is not configured </b>";
             req.setAttribute("errormessage", message);
 
-            List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
+//            List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
 
-            String nextJSP = "/routes.jsp";
+            String nextJSP = "/main";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-            req.setAttribute("routeList", routeList);
-            if (fobj != null)
-                req.setAttribute("paths", fobj);
-
-            req.setAttribute("obj", obj);
-            dispatcher.include(req, resp);
+//            req.setAttribute("routeList", routeList);
+//            if (fobj != null)
+//                req.setAttribute("paths", fobj);
+//
+//            req.setAttribute("obj", obj);
+            dispatcher.forward(req, resp);
             return;
         }
 
@@ -245,16 +242,16 @@ public class ProxyServlet extends HttpServlet
         String message = "<b>Forwarding Request to </b>" + newPath ;
         req.setAttribute("message", message);
 
-        List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
+//        List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
 
-        String nextJSP = "/routes.jsp";
+        String nextJSP = "/main";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("routeList", routeList);
-        if (fobj != null)
-            req.setAttribute("paths", fobj);
-
-        req.setAttribute("obj", obj);
-        dispatcher.include(req, resp);
+//        req.setAttribute("routeList", routeList);
+//        if (fobj != null)
+//            req.setAttribute("paths", fobj);
+//
+//        req.setAttribute("obj", obj);
+        dispatcher.forward(req, resp);
 
 //        try {
 //            URI uri = new URI(path);

@@ -1,0 +1,61 @@
+{
+  "pcml" : {
+    "id" : "idperf71S2v0.1",
+    "version" : "v0.1",
+    "library" : "/usr/lib/libperfstat.a",
+    "oslevel" : "71TL06_SP2"
+  },
+  "definitions" : {
+    "perfstat_partition_config_t" : {
+      "type" : "struct",
+      "length" : 808,
+      "properties" : {
+        "partitionname" : {
+          "type" : "string",
+          "maxLength" : 64,
+          "offset" : 0,
+          "length" : 64
+        },
+        "partitionnum" : {
+          "type" : "int",
+          "offset" : 64,
+          "length" : 4
+        },
+        "groupid" : {
+          "type" : "int",
+          "offset" : 68,
+          "length" : 4
+        }
+      }
+    }
+  },
+  "functions" : {
+    "perfstat_partition_config" : {
+      "returnCode" : {
+        "type" : "int"
+      },
+      "params" : {
+        "name" : {
+          "type" : "long",
+          "passby" : 0,
+          "length" : 8
+        },
+        "userbuff" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/perfstat_config_t"
+          },
+          "passby" : 1
+        },
+        "sizeof_userbuff" : {
+          "type" : "int",
+          "length" : 4
+        },
+        "desired_number" : {
+          "type" : "int",
+          "length" : 4
+        }
+      }
+    }
+  }
+}

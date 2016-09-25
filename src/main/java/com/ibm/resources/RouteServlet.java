@@ -3,7 +3,6 @@ package com.ibm.resources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.aix.Forward;
 import com.ibm.aix.ForwardPath;
-import com.ibm.aix.ForwardRouteInfo;
 
 import javax.servlet.RequestDispatcher;
 
@@ -30,6 +29,8 @@ import io.swagger.util.Json;
         urlPatterns = {"/routes"}
 )
 public class RouteServlet  extends HttpServlet {
+
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -68,14 +69,7 @@ public class RouteServlet  extends HttpServlet {
 //        for(ForwardPath route : routeList) {
 //            System.out.println(route.getRouteInfo().getHost());
 //        }
-        String nextJSP = "/routes.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("routeList", routeList);
-        if (fobj != null)
-            req.setAttribute("paths", fobj);
 
-        req.setAttribute("obj", obj);
-        dispatcher.forward(req, resp);
 
     }
 
@@ -104,11 +98,11 @@ public class RouteServlet  extends HttpServlet {
         String message = "The new route (" + pathName + ") has been successfully created.";
         req.setAttribute("message", message);
 
-        List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
+//        List<ForwardPath> routeList = Helpers.getRouteList(this.getServletContext());
 
-        String nextJSP = "/routes.jsp";
+        String nextJSP = "/main";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("routeList", routeList);
+//        req.setAttribute("routeList", routeList);
         dispatcher.forward(req, resp);
     }
 

@@ -11,8 +11,9 @@
             <h4 class="modal-title" id="myModalLabel">Add New Route</h4>
           </div>
 
-          <div class="modal-body">
-            <form action="./routes" method="post"  role="form" data-toggle="validator" class="form-horizontal">
+          <form action="./routes" method="post"  role="form" data-toggle="validator" class="form-horizontal">
+            <div class="modal-body">
+
               <c:if test ="${empty action}">
                 <c:set var="action" value="add"/>
               </c:if>
@@ -74,12 +75,13 @@
                     required="true"/>
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
