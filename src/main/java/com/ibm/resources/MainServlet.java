@@ -51,6 +51,10 @@ public class MainServlet  extends HttpServlet{
             routeList.add(path);
         }
 
+        String jsonContent = Helpers.getJsonContent(this.getServletContext());
+        if(!jsonContent.equals("")) {
+            req.setAttribute("jsonContent", jsonContent);
+        }
         String nextJSP = "/main.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("routeList", routeList);
@@ -72,6 +76,7 @@ public class MainServlet  extends HttpServlet{
                 PCML pObj = Helpers.loadPCML(library, this.getServletContext());
                 if (pObj != null)
                     req.setAttribute("pcml", pObj);
+
             }
         }
 

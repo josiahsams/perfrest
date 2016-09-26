@@ -2,6 +2,9 @@ package com.ibm.aix;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.models.Swagger;
+import io.swagger.parser.SwaggerParser;
+import io.swagger.parser.util.SwaggerDeserializationResult;
 import io.swagger.util.Json;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
@@ -85,29 +88,39 @@ public class Helpers {
         return message;
     }
 
-
-    public static Forward getForwards(ServletContext context) {
-        Forward fobj = null;
-
+    public static String getJsonContent(ServletContext context) {
+        StringBuilder jsonTxt = new StringBuilder();
         try {
+//            System.out.println(context.getRealPath("/WEB-INF/forward.json"));
+//            SwaggerDeserializationResult swaggerDeser = new SwaggerParser().readWithInfo("http://petstore.swagger.io/v2/swagger.json", null, true);
+//            System.out.println(Json.pretty(swaggerDeser.getSwagger()));
 
-            InputStream is = context.getResourceAsStream("/WEB-INF/forward.json");
+            InputStream is = context.getResourceAsStream("/WEB-INF/forward-expanded.json");
             BufferedReader r = new BufferedReader(new InputStreamReader(is));
-
-            StringBuilder jsonTxt = new StringBuilder();
 
             String line = "";
             while((line = r.readLine()) != null) {
                 jsonTxt.append(line);
             }
 
-            ObjectMapper obj = Json.mapper();
-            fobj = obj.readValue(jsonTxt.toString(), Forward.class);
-
             is.close();
 
         } catch (Exception e ) {
             System.err.println(e);
+            return "";
+        }
+        return jsonTxt.toString();
+    }
+
+    public static Forward getForwards(ServletContext context) {
+        Forward fobj = null;
+
+        try {
+            ObjectMapper obj = Json.mapper();
+            fobj = obj.readValue(getJsonContent(context), Forward.class);
+        } catch (Exception e ) {
+            System.err.println(e);
+            return null;
         }
 
         return fobj;
@@ -117,10 +130,12 @@ public class Helpers {
         List<String> fileList = new ArrayList<String>();
 
         for (String ot : context.getResourcePaths("/WEB-INF/pcml/")) {
-            String[] splitPath = ot.split("/");
-            int len = splitPath.length;
-            String pathWithExt = splitPath[len -1];
-            fileList.add(pathWithExt.substring(0,pathWithExt.length()-5));
+            if (!ot.contains("expanded")) {
+                String[] splitPath = ot.split("/");
+                int len = splitPath.length;
+                String pathWithExt = splitPath[len - 1];
+                fileList.add(pathWithExt.substring(0, pathWithExt.length() - 5));
+            }
         }
         return fileList;
     }
@@ -130,7 +145,7 @@ public class Helpers {
 
         PCML pobj = null;
         try {
-            InputStream is = context.getResourceAsStream("/WEB-INF/pcml/"+libraryName+".json");
+            InputStream is = context.getResourceAsStream("/WEB-INF/pcml/"+libraryName+"-expanded.json");
             BufferedReader r = new BufferedReader(new InputStreamReader(is));
 
             StringBuilder jsonTxt = new StringBuilder();

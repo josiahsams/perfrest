@@ -1,0 +1,472 @@
+{
+    "paths": [
+        {
+            "route": "/path1/{param1}/path2/{param2}",
+            "routeInfo": {
+                "path": "/newpath/{param1}",
+                "scheme": "http",
+                "host": "localhost",
+                "port": "4000",
+                "method": "get",
+                "additionalQueryParams": "name=fixedvalue&param2={param2}"
+            },
+            "swaggerInfo": {
+                "get": {
+                    "tags": [
+                        "perf"
+                    ],
+                    "operationId": "getPerf",
+                    "summary": "Get Performance Data",
+                    "description": "Long description about the API method",
+                    "produces": [
+                        "text/plain",
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "in": "path",
+                            "description": "Input Parameter 1 description",
+                            "required": true
+                        },
+                        {
+                            "name": "param2",
+                            "in": "path",
+                            "description": "Input Parameter 2 description",
+                            "required": true
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Return System Configuration",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        "default": {
+                            "description": "Unexpected error",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "fields": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "tags": [
+                        "perf"
+                    ],
+                    "operationId": "postPerf",
+                    "summary": "Get Performance Data",
+                    "description": "Long description about the API method",
+                    "produces": [
+                        "text/plain",
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "in": "path",
+                            "description": "Input Parameter 1 description",
+                            "required": true
+                        },
+                        {
+                            "name": "param2",
+                            "in": "path",
+                            "description": "Input Parameter 2 description",
+                            "required": true
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Return System Configuration",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        "default": {
+                            "description": "Unexpected error",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "fields": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "route": "/path/{param1}",
+            "routeInfo": {
+                "path": "/newpath",
+                "scheme": "http",
+                "host": "121.24.32.2",
+                "port": "4000",
+                "method": "get",
+                "additionalQueryParams": "name=fixedvalue&param1={param1}"
+            },
+            "swaggerInfo": {
+                "get": {
+                    "tags": [
+                        "config"
+                    ],
+                    "operationId": "getConfig",
+                    "summary": "Get Performance Data 2 ",
+                    "description": "Long description about the API method 2",
+                    "produces": [
+                        "text/plain",
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "in": "path",
+                            "description": "Input Parameter description",
+                            "required": true
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Return Performance Data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "parameters": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "hostname": {
+                                                    "type": "string"
+                                                },
+                                                "processorFamily": {
+                                                    "type": "string"
+                                                },
+                                                "drives": {
+                                                    "type": "integer",
+                                                    "format": "int64"
+                                                },
+                                                "lcpus": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                },
+                                                "osbuild": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "route": "/path11/{param1}/path22/{param2}",
+            "routeInfo": {
+                "path": "/newpath",
+                "scheme": "http",
+                "host": "5.23.34.12",
+                "port": "4000",
+                "method": "get",
+                "additionalQueryParams": "name=fixedvalue&param1={param1}&param2={param2}"
+            }
+        },
+        {
+            "route": "/path",
+            "routeInfo": {
+                "path": "/newpath",
+                "scheme": "http",
+                "host": "9.34.34.2",
+                "port": "4000",
+                "method": "get",
+                "additionalQueryParams": "name=fixedvalue"
+            }
+        },
+        {
+            "route": "/doSquare",
+            "routeInfo": {
+                "path": "/doSquare",
+                "scheme": "http",
+                "host": "localhost",
+                "port": "8080",
+                "method": "get"
+            },
+            "swaggerInfo": {
+                "post": {
+                    "tags": [
+                        "math"
+                    ],
+                    "operationId": "performSquareOp",
+                    "summary": "Perform Square",
+                    "description": "Long description about the API method",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "ptr",
+                            "in": "body",
+                            "description": "Input Parameter 1 description",
+                            "required": true,
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstarg": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "a": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                },
+                                                "b": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                },
+                                                "c": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Return System Configuration",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "a": {
+                                            "type": "integer",
+                                            "format": "int32"
+                                        },
+                                        "b": {
+                                            "type": "integer",
+                                            "format": "int32"
+                                        },
+                                        "c": {
+                                            "type": "integer",
+                                            "format": "int32"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "default": {
+                            "description": "Unexpected error",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "fields": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "tags": [
+        {
+            "name": "perf",
+            "description": "APIs to get Performance Metrics"
+        },
+        {
+            "name": "config",
+            "description": "APIs to get Configuration Metrics"
+        },
+        {
+            "name": "math",
+            "description": "APIs to perform Math operation"
+        }
+    ],
+    "definitions": {
+        "InputFormat": {
+            "type": "object",
+            "properties": {
+                "parameters": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "hostname": {
+                                "type": "string"
+                            },
+                            "processorFamily": {
+                                "type": "string"
+                            },
+                            "drives": {
+                                "type": "integer",
+                                "format": "int64"
+                            },
+                            "lcpus": {
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "osbuild": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "OutputFormat": {
+            "type": "object",
+            "properties": {
+                "parameters": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "hostname": {
+                                "type": "string"
+                            },
+                            "processorFamily": {
+                                "type": "string"
+                            },
+                            "drives": {
+                                "type": "integer",
+                                "format": "int64"
+                            },
+                            "lcpus": {
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "osbuild": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "LparConfig": {
+            "type": "object",
+            "properties": {
+                "hostname": {
+                    "type": "string"
+                },
+                "processorFamily": {
+                    "type": "string"
+                },
+                "drives": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "lcpus": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "osbuild": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        },
+        "OneMember": {
+            "type": "integer",
+            "format": "int32"
+        },
+        "firstarg": {
+            "type": "object",
+            "properties": {
+                "firstarg": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "a": {
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "b": {
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "c": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "structabc": {
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "b": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "c": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        }
+    }
+}

@@ -272,9 +272,8 @@
                 <div class="col-sm-8">
                   <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_mesgIndex">
                     <div id="${rs_mesgIndex.count}_paramResponseDetails" style="display: none">
-			<pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.value)}</option>
-                   </div>
-
+                		  <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.value)}</pre>
+                    </div>
                   </c:forEach>
               </div>
 

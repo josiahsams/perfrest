@@ -3,6 +3,18 @@
 
         $('textarea[data-editor]').each(function () {
             var textarea = $(this);
+            if (textarea.val() != "") {
+              var str = textarea.val().replace(/ /g,'');
+
+            }
+
+           if(typeof str != 'undefined') {
+            var jsonDoc = JSON.parse(str);
+            var sample = sampleData(jsonDoc);
+            var prtext = JSON.stringify(sample);
+            console.log(sample);
+           }
+
             var mode = textarea.data('editor');
             var editDiv = $('<div>', {
                 position: 'absolute',
@@ -10,7 +22,8 @@
                 height: textarea.height(),
                 'class': textarea.attr('class')
             }).insertBefore(textarea);
-            textarea.css('visibility', 'hidden');
+            //textarea.css('visibility', 'hidden');
+            textarea.css('display', 'none');
             var editor = ace.edit(editDiv[0]);
             editor.renderer.setShowGutter(false);
             editor.$blockScrolling = "Infinity";
@@ -36,8 +49,12 @@
             };
 
 
+            if (typeof prtext == 'undefined') {
+              editor.getSession().setValue("{\"InputFormat\":{\"type\":\"object\",\"properties\":{\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}}");
+            } else {
+              editor.getSession().setValue(prtext);
+            }
 
-            editor.getSession().setValue("{\"InputFormat\":{\"type\":\"object\",\"properties\":{\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}}");
             editor.getSession().setMode("ace/mode/" + mode);
             editor.setTheme("ace/theme/eclipse");
             var val = editor.session.getValue()

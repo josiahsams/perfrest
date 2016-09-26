@@ -7,7 +7,7 @@
   },
   "definitions" : {
     "abcdptr" : {
-      "type" : "struct",
+      "type" : "object",
       "length" : 32,
       "properties" : {
         "a" : {
@@ -53,7 +53,7 @@
       }
     },
     "abcdarray" : {
-      "type" : "struct",
+      "type" : "object",
       "length" : 56,
       "properties" : {
         "a" : {
@@ -97,14 +97,14 @@
   },
   "functions" : {
     "squareabcdptr" : {
-      "returnCodeCode" : {
+      "returnCode" : {
         "type" : "array",
         "items" : {
           "$ref" : "#/definitions/abcdptr"
         }
       },
       "params" : {
-        "ptr" : {
+        "abcdptr" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/abcdptr"
@@ -114,19 +114,25 @@
       }
     },
     "squareabcdarray" : {
-      "returnCodeCode" : {
+      "returnCode" : {
         "type" : "array",
         "items" : {
           "$ref" : "#/definitions/abcdarray"
         }
       },
       "params" : {
-        "ptr" : {
+        "abcdarray1" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/abcdarray"
           },
           "passby" : 1
+        },
+        "abcdarray2" : {
+          "type" : "string",
+          "maxLength" : 4,
+          "offset" : 44,
+          "length" : 5
         }
       }
     }
