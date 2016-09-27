@@ -1,0 +1,128 @@
+{
+  "paths" : {
+    "/squareabcdptr" : {
+      "pcmlInfo": {
+        "library": "libabc.so",
+        "pcmlId" : "id71S2v0.1",
+        "symbol" : "squareabcdptr"
+      },
+      "routingInfo": {
+        "host": "localhost",
+        "port": 4000
+      },
+      "staticValues": {
+        "e": 10
+      },
+      "returnEntries" : {
+        "__returnCode":{}
+      },
+      "swaggerInfo": {
+        "post": {
+          "tags": [
+            "math"
+          ],
+          "operationId": "performSquareOp",
+          "summary": "Perform Square",
+          "description": "Long description about the API method",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "ptr",
+              "in": "body",
+              "description": "Input Parameter 1 description",
+              "required": true,
+              "schema" : {
+                "$ref" : "#/definitions/firstarg"
+              }
+            }
+
+          ],
+          "responses": {
+            "200": {
+              "description": "Return System Configuration",
+              "schema" :{
+                "type" : "array",
+                "items" : {
+                  "$ref": "#/definitions/structabc"
+                }
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags" : [
+    {
+      "name": "perf",
+      "description": "APIs to get Performance Metrics"
+    },
+    {
+      "name": "config",
+      "description": "APIs to get Configuration Metrics"
+    },
+    {
+      "name": "math",
+      "description": "APIs to perform Math operation"
+    }
+  ],
+  "definitions" : {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref" : "#/definitions/OneMember"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "OneMember" : {
+      "type": "integer",
+      "format": "int32"
+    },
+    "firstarg" : {
+      "type" : "object",
+      "properties" : {
+        "firstarg" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/structabc"
+          }
+        }
+      }
+    },
+    "structabc" : {
+      "type" : "object",
+      "properties" : {
+        "a" : {
+          "type": "integer",
+          "format": "int32"
+        },
+        "b" : {
+          "type": "integer",
+          "format": "int32"
+        },
+        "c" : {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

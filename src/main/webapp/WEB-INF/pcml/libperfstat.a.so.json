@@ -3,7 +3,9 @@
     "id" : "idperf71S2v0.1",
     "version" : "v0.1",
     "library" : "/usr/lib/libperfstat.a",
-    "oslevel" : "71TL06_SP2"
+    "oslevel" : "71TL06_SP2",
+    "hostname" : "oak14.aus.stglabs.ibm.com",
+    "port" : 3030
   },
   "definitions" : {
     "perfstat_partition_config_t" : {

@@ -1,7 +1,9 @@
 package com.ibm.aix;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.JsonNode;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -10,26 +12,18 @@ import java.util.Random;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CallServiceMessage {
     long id;
-    String libraryWithPath;
+    String pcmlId;
+    String library;
     String symbol;
-    String outputClass;
-    FunctionParams[]params;
-    FunctionParams returnCode;
+    JsonNode params;
+    JsonNode returnEntries;
 
-    public CallServiceMessage(String libraryWithPath, String symbol, String outputClass) {
-        Random gen = new Random(100000);
-        id = gen.nextLong();
-        this.libraryWithPath = libraryWithPath;
+    public CallServiceMessage(String library, String pcmlId, String symbol) {
+        Random gen = new Random(1000);
+        id = gen.nextInt(10000);
+        this.library = library;
+        this.pcmlId = pcmlId;
         this.symbol = symbol;
-        this.outputClass = outputClass;
-    }
-
-    public CallServiceMessage(String libraryWithPath, String symbol) {
-        Random gen = new Random(100000);
-        id = gen.nextLong();
-        this.libraryWithPath = libraryWithPath;
-        this.symbol = symbol;
-        this.outputClass = symbol;
     }
 
     public long getId() {
@@ -40,14 +34,6 @@ public class CallServiceMessage {
         this.id = id;
     }
 
-    public String getLibraryWithPath() {
-        return libraryWithPath;
-    }
-
-    public void setLibraryWithPath(String libraryWithPath) {
-        this.libraryWithPath = libraryWithPath;
-    }
-
     public String getSymbol() {
         return symbol;
     }
@@ -56,27 +42,35 @@ public class CallServiceMessage {
         this.symbol = symbol;
     }
 
-    public String getOutputClass() {
-        return outputClass;
+    public String getPcmlId() {
+        return pcmlId;
     }
 
-    public void setOutputClass(String outputClass) {
-        this.outputClass = outputClass;
+    public void setPcmlId(String pcmlId) {
+        this.pcmlId = pcmlId;
     }
 
-    public FunctionParams[] getParams() {
+    public String getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(String library) {
+        this.library = library;
+    }
+
+    public JsonNode getParams() {
         return params;
     }
 
-    public void setParams(FunctionParams[] params) {
+    public void setParams(JsonNode params) {
         this.params = params;
     }
 
-    public FunctionParams getReturnCode() {
-        return returnCode;
+    public JsonNode getReturnEntries() {
+        return returnEntries;
     }
 
-    public void setReturnCode(FunctionParams returnCode) {
-        this.returnCode = returnCode;
+    public void setReturnEntries(JsonNode returnEntries) {
+        this.returnEntries = returnEntries;
     }
 }

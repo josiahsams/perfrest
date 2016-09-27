@@ -12,7 +12,7 @@
             var jsonDoc = JSON.parse(str);
             var sample = sampleData(jsonDoc);
             var prtext = JSON.stringify(sample);
-            console.log(sample);
+            //console.log(sample);
            }
 
             var mode = textarea.data('editor');

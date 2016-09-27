@@ -1,9 +1,4 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json-schema-faker/0.3.6/json-schema-faker.js"></script>
 
-<script>
-//var jsf = require('json-schema-faker');
-console.log(jsf.version);
-</script>
   <div class="panel panel-primary">
     <div class="panel-heading">Create Route Based on PCML</div>
 
@@ -71,11 +66,31 @@ console.log(jsf.version);
               <div class="col-sm-8">
                 <select class="form-control" id="tag" onchange="showFunctionParams(this);">
                   <c:forEach var="func" items="${pcml.functions}" varStatus="func_index">
-                    <option value="${func_index.index}">${func.key}</option>
+                    <option value="${func_index.index}_${func.key}">${func.key}</option>
+                    <c:if test="${func_index.first}">
+                      <c:set var="pathDisplay" value="${func.key}"/>
+                    </c:if>
                   </c:forEach>
                 </select>
               </div>
             </div>
+
+            <div class="form-group ">
+              <label for="route" class="control-label col-sm-2">Path: </label>
+
+              <div class="input-group  col-sm-offset-2  col-sm-8">
+                <span class="input-group-addon" id="basic-addon3">
+                ${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/cfunc/
+                </span>
+                <input type="text" name="route"
+                  id="pathHolder"
+                  class="form-control" value="${pathDisplay}"
+                  required="true"  aria-describedby="basic-addon3"
+                  data-toggle="tooltip" title="Enter the REST path to invoke this API !"
+                  placeholder="Enter the REST path to invoke this API "/>
+              </div>
+            </div>
+
 
             <div class="form-group ">
               <label for="tag" class="control-label col-sm-2">Parameters: </label>
@@ -118,6 +133,11 @@ console.log(jsf.version);
                           id="cparam_${cfIndex.index}_${cpIndex.count}"
                             style="border-right: 1px solid #ccc; border-left: 1px solid #ccc;border-bottom: 1px solid #ccc; padding: 20px;">
 
+                          <input type="text" class="form-control"
+                            id="paramDesc_${cfIndex.index}_${cpIndex.count}"
+                            name="paramDesc_${cfIndex.index}_${cpIndex.count}" placeholder="Enter Parameter Description">
+
+
                           <div class="checkbox">
                             <label>
                               <input type="checkbox" name="checkbox_${cfIndex.index}_${cpIndex.count}"
@@ -131,7 +151,7 @@ console.log(jsf.version);
                               <input type="radio" name="optionsRadios_${cfIndex.index}_${cpIndex.count}"
                                 id="optionsRadios1_${cfIndex.index}_${cpIndex.count}" value="option1" checked>
                               Add This Parameter
-            <pre style="border:0px; background-color: #eee;">${obj.writerWithDefaultPrettyPrinter().writeValueAsString(par.value)}</pre>
+            <pre style="border:0px; background-color: #eee;width:570px;">${obj.writerWithDefaultPrettyPrinter().writeValueAsString(par.value)}</pre>
                             </label>
                           </div>
 

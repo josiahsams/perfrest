@@ -3,6 +3,7 @@ package com.ibm.resources;
 /**
  * Created by joe on 24/7/16.
  */
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.sun.jersey.api.view.Viewable;
@@ -60,6 +61,8 @@ public class perfrest {
 
         return LparConfig.getLparConfig(input);
     }
+
+
     @POST
     @Path("/configpost1/{subResources: .*}")
 

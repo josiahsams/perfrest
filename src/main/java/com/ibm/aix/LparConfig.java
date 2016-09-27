@@ -2,8 +2,12 @@ package com.ibm.aix;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.util.Json;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.ibm.aix.Helpers.connect;
 import static com.ibm.aix.Helpers.receiveMessage;
@@ -28,55 +32,20 @@ public class LparConfig {
         connect("127.0.0.1", 4000);
 
         CallServiceMessage csm = new CallServiceMessage(
-                "/usr/lib/libperfstat.a",
-                "function1",
-                "LparConfig");
+                "libabc.so",
+                "id71S2v0.1",
+                "squareabcdptr");
 
-//        FunctionParams fp1 = new FunctionParams("param1", "int");
-//        fp1.setValues(new String[]{"10"});
-//
-//        FunctionParams fp2 = new FunctionParams("param2", "int");
-//        fp2.setCount(3);
-//        fp2.setValues(new String[]{"10", "20", "30"});
-//        fp2.setPassBy(1);
-//
-//        FunctionParams fp3 = new FunctionParams("param3", "struct");
-//        fp3.setSubTypeId("structabc");
-//        fp3.setCount(2);
-//        fp3.setPassBy(1);
-//        fp3.setValues(new String[]{
-//                "20,'str1','str2','str3','str4'",
-//                "34,'str321','str243','str334','str434'"
-//        });
-//
-//        FunctionParams fp4 = new FunctionParams("param4", "struct");
-//        fp4.setPassBy(1);
-//        fp4.setCount(4);
-//        fp4.setOutput(true);
-//        fp4.setSubTypeId("structabc");
-//
-//        FunctionParams fp5 = new FunctionParams("param5", "int");
-//        fp5.setValues(new String[]{"10"});
-//        fp5.setPassBy(1);
-//
-//        FunctionParams fp6 = new FunctionParams("param6", "struct");
-//        fp6.setPassBy(1);
-//        fp6.setOutput(true);
-//        fp6.setCountRef("param5");
-//        fp6.setSubTypeId("structabc");
-//
-//
-//        csm.setParams(new FunctionParams[]{fp1, fp2, fp3, fp4, fp5, fp6});
-//        csm.setReturnCode(rc);
-
-        csm.setParams(input.getParameters());
+        Map<String, FunctionParams> params = new HashMap<String, FunctionParams>();
+        Map<String, FunctionParams> returnEntries = new HashMap<String, FunctionParams>();
 
         FunctionParams rc = new FunctionParams("returnObj", "struct");
         rc.setSubTypeId("structabc");
+        returnEntries.put("__returnCode", rc);
 
-        csm.setReturnCode(rc);
+        //csm.setReturnEntries(returnEntries);
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = Json.mapper();
 
         String jsonString;
 
@@ -86,10 +55,6 @@ public class LparConfig {
             System.err.println(e);
             jsonString = "Error creating message";
         }
-
-        // String [] fp1_values = new String[1];
-        // fp1_values[0] = "10";
-        // fp1.setValues(fp1_values);
 
         sendMessage(jsonString);
 

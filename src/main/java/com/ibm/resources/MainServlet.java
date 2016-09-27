@@ -51,7 +51,7 @@ public class MainServlet  extends HttpServlet{
             routeList.add(path);
         }
 
-        String jsonContent = Helpers.getJsonContent(this.getServletContext());
+        String jsonContent = Helpers.getJsonContent("/WEB-INF/forward-expanded.json", this.getServletContext());
         if(!jsonContent.equals("")) {
             req.setAttribute("jsonContent", jsonContent);
         }

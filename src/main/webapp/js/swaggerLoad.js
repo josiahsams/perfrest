@@ -86,7 +86,9 @@ function sampleData(schema) {
 
 
 function showFunctionParams(sel) {
-  _id = sel.value;
+  optionValue = sel.value.split("_");
+  _id = optionValue[0];
+  functionName = optionValue[1];
 
   //console.log("look for functionParams_"+_id);
 
@@ -95,6 +97,8 @@ function showFunctionParams(sel) {
     });
 
   document.getElementById("functionParams_"+_id).style.display = "";
+  console.log("set value to " + functionName);
+  $("#pathHolder").val(functionName);
 }
 
 $(document).ready (function(){

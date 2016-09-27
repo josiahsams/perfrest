@@ -13,7 +13,8 @@
         "a" : {
           "type" : "array",
           "items" : {
-            "type" : "short",
+            "type" : "integer",
+            "format" : "int32",
             "length" : 2
           },
           "offset" : 0,
@@ -23,7 +24,8 @@
         "b" : {
           "type" : "array",
           "items" : {
-            "type" : "int",
+            "type" : "integer",
+            "format" : "int32",
             "length" : 4
           },
           "offset" : 4,
@@ -33,7 +35,8 @@
         "c" : {
           "type" : "array",
           "items" : {
-            "type" : "long",
+            "type" : "integer",
+            "format" : "int64",
             "length" : 8
           },
           "offset" : 8,
@@ -50,7 +53,13 @@
           "length" : 8,
           "passby" : 1
         }
-      }
+      },
+      "required": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ]
     },
     "abcdarray" : {
       "type" : "object",
@@ -59,7 +68,8 @@
         "a" : {
           "type" : "array",
           "items" : {
-            "type" : "short",
+            "type" : "integer",
+            "format" : "int32",
             "length" : 2
           },
           "maxItems" : 2,
@@ -69,7 +79,8 @@
         "b" : {
           "type" : "array",
           "items" : {
-            "type" : "int",
+            "type" : "integer",
+            "format" : "int32",
             "length" : 4
           },
           "maxItems" : 3,
@@ -79,7 +90,8 @@
         "c" : {
           "type" : "array",
           "items" : {
-            "type" : "long",
+            "type" : "integer",
+            "format" : "int64",
             "length" : 8
           },
           "maxItems" : 4,
@@ -92,7 +104,13 @@
           "offset" : 44,
           "length" : 5
         }
-      }
+      },
+      "required": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ]
     }
   },
   "functions" : {

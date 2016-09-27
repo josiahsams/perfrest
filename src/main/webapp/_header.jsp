@@ -46,6 +46,9 @@
 
     <script type="text/javascript" src="${root}/js/jquery.cookie.js"></script>
 
+    <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/json-schema-faker/0.3.6/json-schema-faker.js"></script>
+
     <script src="${root}/js/swaggerLoad.js" type="text/javascript"></script>
     <script src="${root}/js/aceLoad.js" type="text/javascript" ></script>
 

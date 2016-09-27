@@ -66,18 +66,19 @@ public class Helpers {
 
             JsonNode node = nodes.get("response");
             if (node != null) {
-                node = node.get("data");
-                if (node != null) {
-                    node = node.get("LparConfig");
-                    if (node != null) {
-                        message = node.toString();
-
-                    } else {
-                        System.out.println("LparConfig is missing");
-                    }
-                } else {
-                    System.out.println("Data is missing");
-                }
+                return node.toString();
+//                node = node.get("data");
+//                if (node != null) {
+//                    node = node.get("LparConfig");
+//                    if (node != null) {
+//                        message = node.toString();
+//
+//                    } else {
+//                        System.out.println("LparConfig is missing");
+//                    }
+//                } else {
+//                    System.out.println("Data is missing");
+//                }
             } else {
                 System.out.println("Got No Response");
             }
@@ -88,14 +89,14 @@ public class Helpers {
         return message;
     }
 
-    public static String getJsonContent(ServletContext context) {
+    public static String getJsonContent(String fileName, ServletContext context) {
         StringBuilder jsonTxt = new StringBuilder();
         try {
 //            System.out.println(context.getRealPath("/WEB-INF/forward.json"));
 //            SwaggerDeserializationResult swaggerDeser = new SwaggerParser().readWithInfo("http://petstore.swagger.io/v2/swagger.json", null, true);
 //            System.out.println(Json.pretty(swaggerDeser.getSwagger()));
 
-            InputStream is = context.getResourceAsStream("/WEB-INF/forward-expanded.json");
+            InputStream is = context.getResourceAsStream(fileName);
             BufferedReader r = new BufferedReader(new InputStreamReader(is));
 
             String line = "";
@@ -117,7 +118,7 @@ public class Helpers {
 
         try {
             ObjectMapper obj = Json.mapper();
-            fobj = obj.readValue(getJsonContent(context), Forward.class);
+            fobj = obj.readValue(getJsonContent("/WEB-INF/forward-expanded.json", context), Forward.class);
         } catch (Exception e ) {
             System.err.println(e);
             return null;
