@@ -20,28 +20,42 @@ import java.io.PrintWriter;
  * Created by joe on 9/27/16.
  */
 @WebServlet(
-        name = "ProxyServlet",
+        name = "PCMLServlet",
         urlPatterns = {"/cfunc/*"}
 )
 public class PCMLServlet extends HttpServlet {
+
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
+        forwardRequest("GET", req, resp);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
+        forwardRequest("POST", req, resp);
+    }
+
+    private void forwardRequest(String method, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
         String[] pathParts = pathInfo.split("/");
-        String pathToLookup = "/" + pathParts[pathParts.length-1] ;
-        System.out.println(pathToLookup);
+        String pathToLookup = "/cfunc/" + pathParts[pathParts.length-1] ;
+        //System.out.println(pathToLookup);
 
         String userDefinedRoutes = Helpers.getJsonContent("/WEB-INF/pcmlforward.json", this.getServletContext());
 
         StringBuffer sb = new StringBuffer();
-        String line;
-        try {
-            BufferedReader reader = req.getReader();
-            while ((line = reader.readLine()) != null)
-                sb.append(line);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return;
+        if (method.equals("POST")) {
+
+            String line;
+            try {
+                BufferedReader reader = req.getReader();
+                while ((line = reader.readLine()) != null)
+                    sb.append(line);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                return;
+            }
         }
 
         ObjectMapper mapper = Json.mapper();
@@ -57,7 +71,7 @@ public class PCMLServlet extends HttpServlet {
 
         String json = Routing.makeCFuncCall(pcmlPath, sb.toString());
 
-        System.out.println(json);
+        //System.out.println(json);
 
         resp.setContentType("application/json");
 

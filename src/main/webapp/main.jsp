@@ -33,10 +33,13 @@
     <c:if test="${tabactive=='collapseCFunc'}">
       <c:set var="collapseCFuncTab" value="in active"></c:set>
     </c:if>
+    <c:if test="${tabactive=='collapseSwagger'}">
+      <c:set var="collapseSwaggerTab" value="in active"></c:set>
+    </c:if>
 
     <div class="tab-content">
 
-      <div role="tabpanel" class="tab-pane fade" id="collapseSwagger">
+      <div role="tabpanel" class="tab-pane fade ${collapseSwaggerTab}" id="collapseSwagger">
         <%@ include file="./_swaggerInfo.jsp" %>
       </div>
 

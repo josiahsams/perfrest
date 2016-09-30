@@ -13,22 +13,29 @@
         <a class="navbar-brand" href="${pageContext.request.contextPath}/">URL Routing Utility</a>
       </div>
 
-          <form id="collapseCFuncForm" method="post" action="${pageContext.request.contextPath}/">
-            <input type="hidden" name="tabActive" value="collapseCFunc">
-          </form>
+      <form id="collapseCFuncForm" method="post" action="${pageContext.request.contextPath}/">
+        <input type="hidden" name="tabActive" value="collapseCFunc">
+      </form>
+
+      <c:if test="${tabactive=='collapseCFunc'}">
+        <c:set var="CFuncTab" value="in active"></c:set>
+      </c:if>
+      <c:if test="${tabactive=='collapseSwagger'}">
+        <c:set var="SwaggerTab" value="in active"></c:set>
+      </c:if>
+
 
       <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-left">
 
-          <li><a href="#listPath" aria-controls="listPath"
+          <!--li><a href="#listPath" aria-controls="listPath"
                 role="tab" data-toggle="tab">Paths</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#myModal">New Route</a></li-->
 
-          <li><a href="#" data-toggle="modal" data-target="#myModal">New Route</a></li>
+          <li class="${SwaggerTab}"><a href="#collapseSwagger" aria-controls="collapseSwagger"
+                role="tab" data-toggle="tab" aria-expanded="true">REST APIs</a></li>
 
-          <li><a href="#collapseSwagger" aria-controls="collapseSwagger"
-                role="tab" data-toggle="tab" >Swagger</a></li>
-
-          <li class="dropdown">
+          <li class="dropdown ${CFuncTab}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
               aria-haspopup="true" aria-expanded="false">Libraries<span class="caret"></span></a>
               <ul class="dropdown-menu">

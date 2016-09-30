@@ -1,7 +1,7 @@
 {
     "paths": [
         {
-            "route": "/path1/{param1}/path2/{param2}",
+            "route": "/redirect/path1/{param1}/path2/{param2}",
             "routeInfo": {
                 "path": "/newpath/{param1}",
                 "scheme": "http",
@@ -118,7 +118,7 @@
             }
         },
         {
-            "route": "/path/{param1}",
+            "route": "/redirect/path/{param1}",
             "routeInfo": {
                 "path": "/newpath",
                 "scheme": "http",
@@ -186,7 +186,7 @@
             }
         },
         {
-            "route": "/path11/{param1}/path22/{param2}",
+            "route": "/redirect/path11/{param1}/path22/{param2}",
             "routeInfo": {
                 "path": "/newpath",
                 "scheme": "http",
@@ -197,23 +197,156 @@
             }
         },
         {
-            "route": "/path",
+            "route": "/redirect/path",
             "routeInfo": {
                 "path": "/newpath",
                 "scheme": "http",
-                "host": "9.34.34.2",
+                "host": "localhost",
                 "port": "4000",
-                "method": "get",
+                "method": "post",
                 "additionalQueryParams": "name=fixedvalue"
+            },
+            "swaggerInfo": {
+                "post": {
+                    "tags": [
+                        "math"
+                    ],
+                    "operationId": "performProxyTest",
+                    "summary": "Perform Proxy Text",
+                    "description": "Long description about the API method",
+                    "produces": [
+                        "text/html"
+                    ],
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "ptr",
+                            "in": "body",
+                            "description": "Input Parameter 1 description",
+                            "required": true,
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstarg": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "a": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                },
+                                                "b": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                },
+                                                "c": {
+                                                    "type": "integer",
+                                                    "format": "int32"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Return System Configuration",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        "default": {
+                            "description": "Unexpected error",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "fields": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         {
-            "route": "/doSquare",
+            "route": "/proxy/path/{param111}",
+            "routeInfo": {
+                "path": "/newpath",
+                "scheme": "http",
+                "host": "localhost",
+                "port": "4000",
+                "method": "get",
+                "additionalQueryParams": "name=fixedvalue"
+            },
+            "swaggerInfo": {
+                "get": {
+                    "tags": [
+                        "math"
+                    ],
+                    "operationId": "performProxyTest",
+                    "summary": "Perform Proxy Text",
+                    "description": "Long description about the API method",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "param111",
+                            "in": "path",
+                            "description": "Input Parameter 1 description",
+                            "required": true
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Return System Configuration",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        "default": {
+                            "description": "Unexpected error",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "fields": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "route": "/redirect/doSquare",
             "routeInfo": {
                 "path": "/doSquare",
                 "scheme": "http",
                 "host": "localhost",
-                "port": "8080",
+                "port": "4000",
                 "method": "get"
             },
             "swaggerInfo": {
@@ -225,7 +358,7 @@
                     "summary": "Perform Square",
                     "description": "Long description about the API method",
                     "produces": [
-                        "application/json"
+                        "text/html"
                     ],
                     "consumes": [
                         "application/json"

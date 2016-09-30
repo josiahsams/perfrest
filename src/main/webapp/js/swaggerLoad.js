@@ -103,6 +103,15 @@ function showFunctionParams(sel) {
 
 $(document).ready (function(){
 
+  $("#swaggerForm input[name='routingType']").click(function(){
+
+      optionSelected = $('input:radio[name=routingType]:checked').val();
+      //console.log('You clicked radio!' + optionSelected);
+      $("#pathprefix").html($("#_pathprefix").val() + optionSelected);
+      //console.log("new value is " + $("#_pathprefix").val() + optionSelected)
+
+  });
+
   $('.libraryList').on('click', function() {
     var lib = this.id;
     console.log("Clicked item is " + this.id);

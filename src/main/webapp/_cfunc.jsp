@@ -78,7 +78,7 @@
             <div class="form-group ">
               <label for="route" class="control-label col-sm-2">Path: </label>
 
-              <div class="input-group  col-sm-offset-2  col-sm-8">
+              <div class=" col-sm-offset-2  col-sm-8 input-group " style="padding-left: 15px;">
                 <span class="input-group-addon" id="basic-addon3">
                 ${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/cfunc/
                 </span>
@@ -91,6 +91,21 @@
               </div>
             </div>
 
+            <div class="form-group ">
+              <label for="route" class="control-label col-sm-2">Target Hostname: </label>
+              <div class=" col-sm-8">
+                  <input type="text" class="form-control" id="hostname"
+                    placeholder="targetsite.domain.com (or) ip address">
+              </div>
+            </div>
+
+            <div class="form-group ">
+              <label for="route" class="control-label col-sm-2">Target Port: </label>
+              <div class="col-sm-8">
+                  <input type="text" class="form-control" id="port"
+                    placeholder="8080">
+              </div>
+            </div>
 
             <div class="form-group ">
               <label for="tag" class="control-label col-sm-2">Parameters: </label>

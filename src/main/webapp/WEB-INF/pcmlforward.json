@@ -1,6 +1,6 @@
 {
   "paths" : {
-    "/squareabcdptr" : {
+    "/cfunc/squareabcdptr" : {
       "pcmlInfo": {
         "library": "libabc.so",
         "pcmlId" : "id71S2v0.1",

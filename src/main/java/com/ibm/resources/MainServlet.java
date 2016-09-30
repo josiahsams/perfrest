@@ -1,6 +1,7 @@
 package com.ibm.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ibm.aix.Forward;
 import com.ibm.aix.ForwardPath;
 import com.ibm.aix.Helpers;
@@ -57,7 +58,7 @@ public class MainServlet  extends HttpServlet{
         }
         String nextJSP = "/main.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("routeList", routeList);
+//        req.setAttribute("routeList", routeList);
         if (fobj != null)
             req.setAttribute("paths", fobj);
 
@@ -67,6 +68,9 @@ public class MainServlet  extends HttpServlet{
         if (listLibraries != null) {
             req.setAttribute("listLibraries", listLibraries);
         }
+
+        ObjectNode swaggerNodes = Helpers.getSwaggerObject(req.getContextPath(), req.getServletContext());
+        req.setAttribute("rawswagger", swaggerNodes);
 
         Cookie[] reqCookies = req.getCookies();
         for(Cookie c : reqCookies){
@@ -84,7 +88,7 @@ public class MainServlet  extends HttpServlet{
         if(tabAct != null) {
             req.setAttribute("tabactive", tabAct);
         } else {
-            req.setAttribute("tabactive", "listPath");
+            req.setAttribute("tabactive", "collapseSwagger");
         }
 
         dispatcher.forward(req, resp);

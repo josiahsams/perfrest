@@ -35,7 +35,7 @@
                   <br>
 
 
-                  <form action="${pageContext.request.contextPath}/readuser" method="get"
+                  <form action="${pageContext.request.contextPath}/readuser" method="${route.routeInfo.method}"
                     role="form" data-toggle="validator" class="form-horizontal">
 
                     <div class="input-group col-sm-10">

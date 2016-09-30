@@ -23,12 +23,29 @@
               <input type="hidden" id="paramCount" name="paramCount" value="0"/>
               <input type="hidden" id="responseCount" name="responseCount" value="0"/>
 
+                  <div class="form-group">
+                    <label for="routingType" class="control-label col-sm-2">Routing Type:</label>
+                    <div class="col-sm-8">
+                      <label class="radio-inline">
+                        <input type="radio" name="routingType" checked value="redirect">Redirect
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="routingType" value="proxy">Proxy
+                      </label>
+                      <br>
+                      <!-- span id="respSchHelpBlock" class="help-block">
+                        Redirect will push the request to the provided hostname and let it response back to clients.<br>
+                        Proxy acts as an intermediary for all request from clients and collect data from the provided hostname in the background.
+                      </span -->
+                      </div>
+                    </div>
+
               <div class="form-group ">
                 <label for="route" class="control-label col-sm-2">Path: </label>
-
-                <div class="input-group  col-sm-offset-2  col-sm-10">
-                  <span class="input-group-addon" id="basic-addon3">
-                  ${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/
+                <input type="hidden" id="_pathprefix" value="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/">
+                <div class="input-group  col-sm-offset-2  col-sm-10" style="padding-left: 15px;">
+                  <span class="input-group-addon" id="pathprefix">
+                  ${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/redirect
                   </span>
                   <input type="text" name="route" id="route" class="form-control"
                   value="${route.route}"
@@ -81,9 +98,9 @@
                   </select>
                 </div>
               </div>
-      </fieldset>
-      <fieldset id="page_two">
-        <legend>More Information</legend>
+          </fieldset>
+          <fieldset id="page_two">
+            <legend>More Information</legend>
               <div class="form-group">
                 <label for="operationId" class="control-label col-sm-2">operationId:</label>
                 <div class="col-sm-8">
@@ -214,74 +231,70 @@
               </fieldset>
                 <fieldset id="page_four">
                 <legend>Add Response Definition</legend>
-              <div class="hide" id="responseTemplate">
+                  <div class="hide" id="responseTemplate">
 
-                <div class="form-group">
-                  <label for="responseKey" class="control-label col-sm-2">Response:</label>
-                  <div class="col-sm-8">
-                    <select class="form-control" id="responseKey">
-                    <option>200</option>
-                    <option>400</option>
-                    <option>403</option>
-                    <option>404</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="responseDesc" class="control-label col-sm-2">Description:</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="responseDesc" id="responseDesc"
-                      class="form-control"
-                      required="true" placeholder="Provide response description"/>
-                  </div>
-                </div>
+                    <div class="form-group">
+                      <label for="responseKey" class="control-label col-sm-2">Response:</label>
+                      <div class="col-sm-8">
+                        <select class="form-control" id="responseKey">
+                        <option>200</option>
+                        <option>400</option>
+                        <option>403</option>
+                        <option>404</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="responseDesc" class="control-label col-sm-2">Description:</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="responseDesc" id="responseDesc"
+                          class="form-control"
+                          required="true" placeholder="Provide response description"/>
+                      </div>
+                    </div>
 
-                <div class="form-group">
-                  <label for="responseSchemaType" class="control-label col-sm-2">Schema Type:</label>
-                  <div class="col-sm-8">
-                    <label class="radio-inline">
-                      <input type="radio" name="responseSchemaType">String
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="responseSchemaType">Array
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="responseSchemaType">$ref
-                    </label>
-                    <span id="respSchHelpBlock" class="help-block">All types other than 'String' type needs Schema</span>
+                    <div class="form-group">
+                      <label for="responseSchemaType" class="control-label col-sm-2">Schema Type:</label>
+                      <div class="col-sm-8">
+                        <label class="radio-inline">
+                          <input type="radio" name="responseSchemaType">String
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responseSchemaType">Array
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responseSchemaType">$ref
+                        </label>
+                        <span id="respSchHelpBlock" class="help-block">All types other than 'String' type needs Schema</span>
+                        </div>
+                      </div>
+
+
+                    <div class="form-group">
+                      <label for="responseSchema" class="control-label col-sm-2">Schema:</label>
+                      <div class="col-sm-8">
+                        <select class="form-control" id="ResponseSchema" messageSuffix="paramResponseDetails"
+                          onchange="showSchema(this);">
+                          <option value="0">No Schema</option>
+                          <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_index">
+                            <option value="${rs_index.count}">#/definitions/${resp.key}</option>
+                          </c:forEach>
+                        </select>
                     </div>
                   </div>
 
 
-                <div class="form-group">
-                  <label for="responseSchema" class="control-label col-sm-2">Schema:</label>
-                  <div class="col-sm-8">
-                    <select class="form-control" id="ResponseSchema" messageSuffix="paramResponseDetails"
-                      onchange="showSchema(this);">
-                      <option value="0">No Schema</option>
-                      <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_index">
-			                  <option value="${rs_index.count}">#/definitions/${resp.key}</option>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2"></label>
+                    <div class="col-sm-8">
+                      <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_mesgIndex">
+                        <div id="${rs_mesgIndex.count}_paramResponseDetails" style="display: none">
+                          <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.value)}</pre>
+                        </div>
                       </c:forEach>
-                    </select>
+                  </div>
                 </div>
               </div>
-
-
-              <div class="form-group">
-                <label class="control-label col-sm-2"></label>
-                <div class="col-sm-8">
-                  <c:forEach var="resp" items="${paths.definitions}" varStatus="rs_mesgIndex">
-                    <div id="${rs_mesgIndex.count}_paramResponseDetails" style="display: none">
-                		  <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(resp.value)}</pre>
-                    </div>
-                  </c:forEach>
-              </div>
-
-
-            </div>
-          </div>
-
-
 
               <div class="form-group"><label  class="control-label col-sm-2">Response: </label>
                 <div class="col-sm-8">
@@ -289,11 +302,61 @@
                 </div>
               </div>
 
+            </fieldset>
+
+            <fieldset id="page_five">
+                <legend>Add Redirect/Forward Information </legend>
+                <div id="redirectTemplate">
+
+                  <div class="form-group ">
+                    <label for="scheme" class="control-label col-sm-2">Target Scheme:</label>
+                    <div class="col-sm-4">
+                      <select class="form-control" id="scheme">
+                      <option>http</option>
+                      <option>https</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label for="host" class="control-label col-sm-2">Target Host:</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="host" id="host" class="form-control"
+                        value="${route.routeInfo.host}"
+                        required="true"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="port" class="control-label col-sm-2">Target Port:</label>
+                    <div class="col-sm-4">
+                      <input type="text" name="port" id="port" class="form-control"
+                        value="${route.routeInfo.port}"
+                        required="true"/>
+                    </div>
+                  </div>
 
 
 
-              </fieldset>
-            <input type="submit" value="Save Changes" />
+                    <div class="form-group">
+                      <label for="path" class="control-label col-sm-2">Target Path:</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="path" id="path" class="form-control"
+                          value="${route.routeInfo.path}"
+                          required="true"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="queryparam" class="control-label col-sm-2">Additional QueryParams:</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="queryparam" id="queryparam"
+                          class="form-control"
+                          value="${route.routeInfo.additionalQueryParams}"
+                          required="true"/>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+              <input type="submit" value="Save Changes" />
 
             </form>
           </div>

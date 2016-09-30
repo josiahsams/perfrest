@@ -4,7 +4,7 @@
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="url">${req.requestURL}</c:set>
 <c:set var="uri" value="${req.requestURI}" />
-<c:set var="root" value="#{request.contextPath}/perfrest/" />
+<c:set var="root" value="#{request.contextPath}/perfrest" />
 <html>
   <head>
 

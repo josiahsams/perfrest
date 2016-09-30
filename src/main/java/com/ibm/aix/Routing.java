@@ -31,7 +31,10 @@ public class Routing {
 
 
         try {
-            JsonNode paramNode = mapper.readTree(inputContent);
+            JsonNode paramNode = mapper.createObjectNode();
+            if (!inputContent.equals("")) {
+                paramNode = mapper.readTree(inputContent);
+            }
 
             //JsonNode returnEntry = mapper.readTree("{\"__returnCode\":{}}");
             JsonNode returnEntry = mapper.readTree(pcmlPath.getReturnEntries().toString());
