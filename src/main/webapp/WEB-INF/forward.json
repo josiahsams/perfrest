@@ -27,13 +27,15 @@
               "name": "param1",
               "in": "path",
               "description": "Input Parameter 1 description",
-              "required": true
+              "required": true,
+              "type" : "string"
             },
             {
               "name": "param2",
               "in": "path",
               "description": "Input Parameter 2 description",
-              "required": true
+              "required": true,
+              "type" : "string"
             }
           ],
           "responses": {
@@ -67,13 +69,15 @@
               "name": "param1",
               "in": "path",
               "description": "Input Parameter 1 description",
-              "required": true
+              "required": true,
+              "type" : "string"
             },
             {
               "name": "param2",
               "in": "path",
               "description": "Input Parameter 2 description",
-              "required": true
+              "required": true,
+              "type" : "string"
             }
           ],
           "responses": {
@@ -121,7 +125,8 @@
               "name": "param1",
               "in": "path",
               "description": "Input Parameter description",
-              "required": true
+              "required": true,
+              "type" : "string"
             }
           ],
           "responses": {
@@ -217,7 +222,7 @@
           "tags": [
             "math"
           ],
-          "operationId": "performProxyTest",
+          "operationId": "performProxyTestsdasd",
           "summary": "Perform Proxy Text",
           "description": "Long description about the API method",
           "produces": [
@@ -228,7 +233,8 @@
               "name": "param111",
               "in": "path",
               "description": "Input Parameter 1 description",
-              "required": true
+              "required": true,
+              "type" : "string"
             }
           ],
           "responses": {
@@ -262,7 +268,7 @@
           "tags": [
             "math"
           ],
-          "operationId": "performSquareOp",
+          "operationId": "performSquareOp1212",
           "summary": "Perform Square",
           "description": "Long description about the API method",
           "produces": [
