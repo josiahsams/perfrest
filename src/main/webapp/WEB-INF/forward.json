@@ -392,7 +392,7 @@
     "firstarg" : {
       "type" : "object",
       "properties" : {
-        "firstarg" : {
+        "ptr" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/structabc"
@@ -404,16 +404,32 @@
       "type" : "object",
       "properties" : {
         "a" : {
-          "type": "integer",
-          "format": "int32"
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
         },
         "b" : {
-          "type": "integer",
-          "format": "int32"
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
         },
         "c" : {
-          "type": "integer",
-          "format": "int32"
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "d" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "maxItems" : 1
         }
       }
     }

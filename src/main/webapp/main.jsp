@@ -3,6 +3,9 @@
 
   <%@ include file="./_navbar_header.jsp" %>
 
+  <style>
+  body { padding-top: 70px; }
+  </style>
   <div class="container">
 
     <c:if test="${not empty message}">

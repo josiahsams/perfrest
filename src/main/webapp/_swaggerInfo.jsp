@@ -16,9 +16,15 @@
                 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
               </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="sraw">
-            <pre>${obj.writerWithDefaultPrettyPrinter().writeValueAsString(rawswagger)}
-            </pre>
+            <div role="tabpanel" class="tab-pane" id="sraw" >
+
+            <textarea name="rawschemaDefn" data-editor="json" rows="15"
+                              id="rawshemaDefn" editor-ro="true" editor-jsf="false"
+                              style="width:800px; height:600px; "
+                              aria-describedby="basic-addon3">${obj.writerWithDefaultPrettyPrinter().writeValueAsString(rawswagger)}
+
+                              </textarea>
+
             </div>
           </div>
       </div>

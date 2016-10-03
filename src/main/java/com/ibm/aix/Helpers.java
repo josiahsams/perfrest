@@ -14,6 +14,8 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import java.io.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -28,6 +30,66 @@ public class Helpers {
     static Socket socket;
     static DataOutputStream os;
     static DataInputStream is;
+
+    public static DatagramSocketInfo connectUDP(String hostname, int port) {
+        DatagramSocketInfo dInfo = null;
+
+        try {
+            dInfo = new DatagramSocketInfo(new DatagramSocket(), InetAddress.getByName(hostname),
+                        port);
+        } catch (Exception e) {
+            System.out.println("Connection Error: Data Provider Server unknown");
+            e.printStackTrace();
+        }
+        return dInfo;
+    }
+
+    public static boolean sendMessageUDP(DatagramSocketInfo dInfo, String message) {
+        boolean result = true;
+        try {
+            byte[] sendData = message.getBytes();
+
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,
+                    dInfo.getIpaddress(), dInfo.getPort());
+            dInfo.getDsocket().send(sendPacket);
+        } catch (Exception e) {
+            result = false;
+            System.out.println("Error Sending to Data Provider");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String receiveMessageUDP(DatagramSocketInfo dInfo){
+
+        ObjectMapper mapper = Json.mapper();
+        byte[] receiveData = new byte[10240];
+
+        String message = "{}";
+        try {
+
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            dInfo.getDsocket().receive(receivePacket);
+            String str = new String(receivePacket.getData()).trim();
+
+            System.out.println("Received Data : " + str);
+
+            if (!str.equals("")) {
+                JsonNode nodes = mapper.readValue(str, JsonNode.class);
+
+                JsonNode node = nodes.get("response");
+                if (node != null) {
+                    return node.toString();
+                } else {
+                    System.out.println("Got No Response");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error Receiving from Data Provider");
+            e.printStackTrace();
+        }
+        return message;
+    }
 
     public static boolean connect(String hostname, int port) {
         boolean result = true;
@@ -71,18 +133,6 @@ public class Helpers {
             JsonNode node = nodes.get("response");
             if (node != null) {
                 return node.toString();
-//                node = node.get("data");
-//                if (node != null) {
-//                    node = node.get("LparConfig");
-//                    if (node != null) {
-//                        message = node.toString();
-//
-//                    } else {
-//                        System.out.println("LparConfig is missing");
-//                    }
-//                } else {
-//                    System.out.println("Data is missing");
-//                }
             } else {
                 System.out.println("Got No Response");
             }
@@ -96,10 +146,6 @@ public class Helpers {
     public static String getJsonContent(String fileName, ServletContext context) {
         StringBuilder jsonTxt = new StringBuilder();
         try {
-//            System.out.println(context.getRealPath("/WEB-INF/forward.json"));
-//            SwaggerDeserializationResult swaggerDeser = new SwaggerParser().readWithInfo("http://petstore.swagger.io/v2/swagger.json", null, true);
-//            System.out.println(Json.pretty(swaggerDeser.getSwagger()));
-
             InputStream is = context.getResourceAsStream(fileName);
             BufferedReader r = new BufferedReader(new InputStreamReader(is));
 
@@ -185,15 +231,9 @@ public class Helpers {
 
     public static ObjectNode getSwaggerObject(String basePath, ServletContext context) {
 
-        //List<ForwardPath> routeList = new ArrayList<ForwardPath>();
         ObjectMapper obj = Json.mapper();
         Forward fobj = getForwards(context);
         PCMLForward pcmlForward = Helpers.getPCMLForwards(context);
-
-//        for (ForwardPath path: fobj.getPaths()) {
-//            String pathstr = path.getRoute();
-//            routeList.add(path);
-//        }
 
         final Info info = new Info()
                 .version("1.0.0")
@@ -222,85 +262,6 @@ public class Helpers {
         for (ForwardPath path: fobj.getPaths()) {
 
             if (path.getSwaggerInfo() == null || path.getSwaggerInfo().getOperations().isEmpty()) continue;
-//
-//            Map<HttpMethod, Operation> operations = path.getSwaggerInfo().getOperationMap();
-//            Path pathObj = new Path();
-//
-//            for (Map.Entry<HttpMethod, Operation> operationMapEntry : operations.entrySet()) {
-//
-//                HttpMethod httpMethod = operationMapEntry.getKey();
-//                Operation operation = operationMapEntry.getValue();
-//
-//                List<String> produces = operation.getProduces();
-//                String summary = operation.getSummary();
-//                String description = operation.getDescription();
-//                List<String> tags = operation.getTags();
-//                String operationId = operation.getOperationId();
-//
-//                StringBuilder tagList = new StringBuilder();
-//                for(String tag : tags) {
-//                    if (tagList.length() != 0) {
-//                        tagList.append(",");
-//                    }
-//                    tagList.append(tag);
-//                }
-//
-//                final Operation op = new Operation()
-//                        .produces(produces)
-//                        .summary(summary)
-//                        .description(description)
-//                        .tag(tagList.toString())
-//                        .operationId(operationId);
-//
-//                List<Parameter> parameters = operation.getParameters();
-//
-//                for (Parameter param : parameters) {
-//
-//                    String inType = param.getIn();
-//
-//                    Parameter paramObj = null;
-//
-//                    if ("query".equals(inType)) {
-//                        paramObj = Json.mapper().convertValue(param, QueryParameter.class);
-//
-//                    } else if ("header".equals(inType)) {
-//                        paramObj = Json.mapper().convertValue(param, HeaderParameter.class);
-//                    } else if ("path".equals(inType)) {
-//                        paramObj = Json.mapper().convertValue(param, PathParameter.class);
-//                    } else if ("formData".equals(inType)) {
-//                        paramObj = Json.mapper().convertValue(param, FormParameter.class);
-//                    } else if ("body".equals(inType)) {
-//                        paramObj = Json.mapper().convertValue(param, BodyParameter.class);
-//                    } else if ("cookie".equals(inType)) {
-//                        paramObj = Json.mapper().convertValue(param, CookieParameter.class);
-//                    }
-//
-//                    if (paramObj != null)
-//                        op.parameter(paramObj);
-//                }
-//
-//                Map<String, Response> responseMaps = operation.getResponses();
-//
-//                if (responseMaps != null) {
-//                    for (Map.Entry<String, Response> responseEntry : responseMaps.entrySet()) {
-//                        Response opResp = responseEntry.getValue();
-//                        if ("default".equals(responseEntry.getKey())) {
-//                            op.defaultResponse(opResp);
-//                            continue;
-//                        }
-//                        int key = Integer.parseInt(responseEntry.getKey());
-//                        op.response(key, opResp);
-//                    }
-//                }
-//
-//                if (httpMethod == HttpMethod.GET) {
-//                    pathObj.get(op);
-//                } else if (httpMethod == HttpMethod.POST) {
-//                    pathObj.post(op);
-//                } else {
-//                    // Not Implemented for PUT, DELETE, UPDATE, PATCH, HEAD, OPTIONS
-//                }
-//            }
             swagger.path(path.getRoute(), path.getSwaggerInfo());
         }
 

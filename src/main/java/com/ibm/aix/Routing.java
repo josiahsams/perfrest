@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.ibm.aix.Helpers.connect;
-import static com.ibm.aix.Helpers.receiveMessage;
-import static com.ibm.aix.Helpers.sendMessage;
+import static com.ibm.aix.Helpers.*;
 
 /**
  * Created by joe on 9/27/16.
@@ -21,8 +19,12 @@ public class Routing {
     public static String makeCFuncCall(PCMLPath pcmlPath, String inputContent) {
         ObjectMapper mapper = Json.mapper();
 
-        connect(pcmlPath.getRoutingInfo().getHost(), pcmlPath.getRoutingInfo().getPort());
+        DatagramSocketInfo dInfo = connectUDP(pcmlPath.getRoutingInfo().getHost(), pcmlPath.getRoutingInfo().getPort());
 
+        if (dInfo == null) {
+            System.err.println("Error connecting to server");
+            return "{}";
+        }
 
         CallServiceMessage csm = new CallServiceMessage(
                 pcmlPath.getPcmlInfo().getLibrary(),
@@ -60,9 +62,11 @@ public class Routing {
             jsonString = "Error creating message";
         }
 
-        sendMessage(jsonString);
+        sendMessageUDP(dInfo, jsonString);
 
-        String message = receiveMessage();
+        String message = receiveMessageUDP(dInfo);
+
+        dInfo.getDsocket().close();
 
         return message;
     }

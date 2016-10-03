@@ -2,17 +2,26 @@
     $(function () {
 
         $('textarea[data-editor]').each(function () {
-            var textarea = $(this);
-            if (textarea.val() != "") {
+
+           var textarea = $(this);
+
+           if (textarea.val() != "") {
               var str = textarea.val().replace(/ /g,'');
 
-            }
+           }
+
+           var userRO = textarea.attr("editor-ro");
+           var userJSF = textarea.attr("editor-jsf");
 
            if(typeof str != 'undefined') {
-            var jsonDoc = JSON.parse(str);
-            var sample = sampleData(jsonDoc);
-            var prtext = JSON.stringify(sample);
-            //console.log(sample);
+            if( typeof userJSF != 'undefined' && userJSF == "false") {
+              var jsonDoc = JSON.parse(str);
+              var prtext = JSON.stringify(jsonDoc);
+            } else {
+              var jsonDoc = JSON.parse(str);
+              var sample = sampleData(jsonDoc);
+              var prtext = JSON.stringify(sample);
+            }
            }
 
             var mode = textarea.data('editor');
@@ -25,7 +34,18 @@
             //textarea.css('visibility', 'hidden');
             textarea.css('display', 'none');
             var editor = ace.edit(editDiv[0]);
-            editor.renderer.setShowGutter(false);
+
+            if (typeof userRO != 'undefined' && userRO == "true") {
+              editor.setOptions({
+                readOnly: true
+              });
+
+              editor.renderer.setOptions({
+               showGutter: true,
+              });
+            }
+
+            //editor.renderer.setShowGutter(false);
             editor.$blockScrolling = "Infinity";
             editor.setDisplayIndentGuides(true);
             editor.setShowPrintMargin(true);
@@ -62,11 +82,13 @@
             val = JSON.stringify(o, null, 2) // 2 is the indent size
             editor.session.setValue(val)
 
-            editor.getSession().on('change', heightUpdateFunction);
+            if (typeof userRO == 'undefined' || userRO == "false") {
+              editor.getSession().on('change', heightUpdateFunction);
 
-            // copy back to textarea on form submit...
-            textarea.closest('form').submit(function () {
-                textarea.val(editor.getSession().getValue());
-            })
+              // copy back to textarea on form submit...
+              textarea.closest('form').submit(function () {
+                  textarea.val(editor.getSession().getValue());
+              });
+            }
         });
     });

@@ -1,5 +1,5 @@
 
-  <div class="navbar navbar-default" role="navigation">
+  <div class="navbar  navbar-inverse  navbar-fixed-top" role="navigation">
     <div class="container-fluid">
 
       <div class="navbar-header">
@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">URL Routing Utility</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/">MappeR</a>
       </div>
 
       <form id="collapseCFuncForm" method="post" action="${pageContext.request.contextPath}/">
