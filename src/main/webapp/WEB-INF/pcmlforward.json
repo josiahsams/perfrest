@@ -89,7 +89,7 @@
           "tags": [
             "math"
           ],
-          "operationId": "performSquareOp",
+          "operationId": "performSquareOpRC",
           "summary": "Perform Square",
           "description": "Long description about the API method",
           "produces": [
