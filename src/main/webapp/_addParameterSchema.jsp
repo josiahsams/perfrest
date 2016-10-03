@@ -17,14 +17,40 @@
                 <c:set var="action" value="add"/>
               </c:if>
               <input type="hidden" id="action" name="action" value="${action}"/>
-              <div class="form-group ">
 
+
+              <div class="form-group">
+                <label for="psparamSchema" class="control-label col-sm-2">Add/Edit:</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="psparamSchema" messageSuffix="psparamSchemaDetails"
+                      onchange="psshowSchema(this);">
+                      <option value="0">Add New Schema</option>
+                      <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_index">
+                        <option value="${ps_index.count}">#/definitions/${defn.key}</option>
+                      </c:forEach>
+                    </select>
+
+                </div>
+              </div>
+
+              <div class="form-group" style="display: none">
+                <label class="control-label col-sm-2"></label>
+                <div class="col-sm-8" >
+                  <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_mesgIndex">
+                    <div id="${ps_mesgIndex.count}_psdefnName">${defn.key}</div>
+                    <div  id="${ps_mesgIndex.count}_psparamSchemaDetails" >${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.value)}
+                   </div>
+                  </c:forEach>
+                </div>
+              </div>
+
+
+              <div class="form-group ">
                 <label for="schemaKey" class="control-label col-sm-2">Schema Key: </label>
                 <div class="col-sm-8">
-                  <input type="text" name="schemaKey" id="schemaKey" class="form-control"
+                  <input type="text" name="schemaKey" id="psschemaKey" class="form-control"
                   value=""
                   required="true"  aria-describedby="basic-addon3"
-
                   placeholder="Enter unique keyword to register this Schema Definition"/>
                 </div>
               </div>
@@ -33,15 +59,12 @@
               <div class="form-group ">
                 <label for="schemaDefn" class="control-label col-sm-2">Schema : </label>
                 <div class="col-sm-8">
-                  <textarea name="schemaDefn" id="schemaDefn" data-editor="json" rows="15"
+                  <textarea name="schemaDefn" id="psschemaDefn" data-editor="json" rows="15"
                     style="width:600px; height:200px;"
                     class="form-control"  aria-describedby="basic-addon3"
                     placeholder="Enter the Schema Definition"></textarea>
                 </div>
               </div>
-
-
-
 
 
           </div>

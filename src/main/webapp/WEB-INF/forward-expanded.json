@@ -261,11 +261,7 @@
                                                     }
                                                 },
                                                 "d": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string"
-                                                    },
-                                                    "maxItems": 1
+                                                    "type": "string"
                                                 }
                                             }
                                         }
@@ -421,11 +417,7 @@
                                                     }
                                                 },
                                                 "d": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string"
-                                                    },
-                                                    "maxItems": 1
+                                                    "type": "string"
                                                 }
                                             }
                                         }
@@ -464,11 +456,7 @@
                                             }
                                         },
                                         "d": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "maxItems": 1
+                                            "type": "string"
                                         }
                                     }
                                 }
@@ -643,11 +631,7 @@
                                 }
                             },
                             "d": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                },
-                                "maxItems": 1
+                                "type": "string"
                             }
                         }
                     }
@@ -679,11 +663,7 @@
                     }
                 },
                 "d": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "maxItems": 1
+                    "type": "string"
                 }
             }
         }

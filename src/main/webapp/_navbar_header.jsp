@@ -56,17 +56,17 @@
                 </li><li>
                   <a href='#'
                   data-toggle="modal" data-target="#swaggerSchema">
-                    Add Parameter Schema Definitions
+                    Parameter Schema Definitions
                   </a>
                 </li><li>
                   <a href='#'
                   data-toggle="modal" data-target="#swaggerResponse">
-                    Add Response Definitions
+                    Response Definitions
                   </a>
                 </li><li>
                   <a href='#'
                   data-toggle="modal" data-target="#swaggerTag">
-                    Add Tag Information
+                    Tag Information
                   </a>
                 </li>
               </ul>
@@ -79,10 +79,10 @@
         </ul>
         <p class="navbar-text navbar-right">IBM PConnect </p>
 
-        <form action="/searchroute" method="get" id="searchRoute" role="form" class="navbar-form navbar-right">
+        <form action="${pageContext.request.contextPath}/searchroute" method="get" id="searchRoute" role="form" class="navbar-form navbar-right">
           <input type="hidden" id="searchAction" name="searchAction" value="searchByName">
           <div class="form-group">
-            <input type="text" name="routePath" id="routePath" class="form-control"
+            <input type="text" name="searchpath" id="searchPath" class="form-control" value="${searchpath}"
             placeholder="Type a Route Path">
           </div>
           <button type="submit" class="btn btn-info">

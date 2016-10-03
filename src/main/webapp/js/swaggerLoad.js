@@ -11,7 +11,8 @@ $(function(){
   if (url && url.length > 1) {
     url = decodeURIComponent(url[1]);
   } else {
-    url = "/perfrest/swagger";
+    url = "/perfrest/swagger?searchpath="+$("#searchpath").val();
+    console.log(url);
   }
 
   hljs.configure({
@@ -59,7 +60,95 @@ $(function(){
   }
 });
 
+function psshowSchema(sel) {
+  _id = sel.value;
 
+  var messageSuffix = $(sel).attr('messageSuffix');
+  //console.log("look for "+_id+"_"+messageSuffix);
+  $("[id$="+messageSuffix+"]").each(function() {
+    $(this).css("display", "none");;
+    });
+
+    if (_id == 0 ) {
+      $("#psschemaKey").val("");
+      $("#psschemaKey").removeAttr("disabled");
+      return;
+    }
+
+  //document.getElementById(_id+"_"+messageSuffix).style.display = "";
+
+  var newContent = $("#"+_id+"_"+messageSuffix).text();
+
+  var editor = ace.edit($("#psschemaDefn_editor")[0]);
+
+  var defnName = $("#"+_id+"_psdefnName").text();
+  //console.log(defnName);
+
+  $("#psschemaKey").val(defnName);
+  $("#psschemaKey").attr("disabled", "disabled");
+
+  editor.getSession().setValue(newContent);
+}
+
+function rsshowSchema(sel) {
+  _id = sel.value;
+
+  var messageSuffix = $(sel).attr('messageSuffix');
+  //console.log("look for "+_id+"_"+messageSuffix);
+  $("[id$="+messageSuffix+"]").each(function() {
+    $(this).css("display", "none");;
+    });
+
+    if (_id == 0 ) {
+      $("#rsschemaKey").val("");
+      $("#rsschemaKey").removeAttr("disabled");
+      return;
+    }
+
+  //document.getElementById(_id+"_"+messageSuffix).style.display = "";
+
+  var newContent = $("#"+_id+"_"+messageSuffix).text();
+  //console.log(newContent);
+
+  var editor = ace.edit($("#rsschemaDefn_editor")[0]);
+
+  var defnName = $("#"+_id+"_rsdefnName").text();
+  //console.log(defnName);
+
+  $("#rsschemaKey").val(defnName);
+  $("#rsschemaKey").attr("disabled", "disabled");
+
+  editor.getSession().setValue(newContent);
+}
+
+function showTag(sel) {
+  _id = sel.value;
+
+  var messageSuffix = $(sel).attr('messageSuffix');
+  //console.log("look for "+_id+"_"+messageSuffix);
+  $("[id$="+messageSuffix+"]").each(function() {
+    $(this).css("display", "none");;
+    });
+
+    if (_id == 0 ) {
+      $("#tagName").val("");
+      $("#tagName").removeAttr("disabled");
+      return;
+    }
+
+  //document.getElementById(_id+"_"+messageSuffix).style.display = "";
+
+  var newContent = $("#"+_id+"_"+messageSuffix).text();
+  //console.log(newContent);
+
+  var defnName = $("#"+_id+"_tagName").text();
+  //console.log(defnName);
+
+  $("#tagName").val(defnName);
+  $("#tagName").attr("disabled", "disabled");
+
+  $('#tagDesc').val(newContent);
+}
 
 function showSchema(sel) {
   _id = sel.value;
@@ -215,7 +304,7 @@ $(document).ready (function(){
            element.setAttribute('id', value);
            element.setAttribute('messageSuffix', newmessageSuffix);
 
-           console.log(newmessageSuffix);
+           //console.log(newmessageSuffix);
        });
         $clone.find("[id$=paramResponseDetails]").each(function() {
           var newId = $(this).attr("id") + "_" + SwaggerApp.responsecount;
@@ -321,9 +410,6 @@ function getReferenceValue (reference) {
 function getReferenceMeta (reference) {
 
   var components = reference.split('/');
-  console.log("joe " + components[1]);
-  console.log("sam " + components[components.length - 1]);
-  console.log("count is " + components.length);
   return {type:components[1], localName:components[components.length - 1]};
 }
 

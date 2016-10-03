@@ -72,7 +72,7 @@ public class Helpers {
             dInfo.getDsocket().receive(receivePacket);
             String str = new String(receivePacket.getData()).trim();
 
-            System.out.println("Received Data : " + str);
+            //System.out.println("Received Data : " + str);
 
             if (!str.equals("")) {
                 JsonNode nodes = mapper.readValue(str, JsonNode.class);
@@ -230,6 +230,11 @@ public class Helpers {
     }
 
     public static ObjectNode getSwaggerObject(String basePath, ServletContext context) {
+        return getSwaggerObjectWithName(basePath,context,"");
+
+    }
+
+    public static ObjectNode getSwaggerObjectWithName(String basePath, ServletContext context, String searchPath) {
 
         ObjectMapper obj = Json.mapper();
         Forward fobj = getForwards(context);
@@ -255,14 +260,26 @@ public class Helpers {
 
         for (Map.Entry<String, PCMLPath> pcmlPathMap : pcmlForward.getPaths().entrySet())
         {
-            swagger.path(pcmlPathMap.getKey(), pcmlPathMap.getValue().getSwaggerInfo());
+            if (!searchPath.equals("")) {
+                if (pcmlPathMap.getKey().contains(searchPath)) {
+                    swagger.path(pcmlPathMap.getKey(), pcmlPathMap.getValue().getSwaggerInfo());
+                }
+            } else {
+                swagger.path(pcmlPathMap.getKey(), pcmlPathMap.getValue().getSwaggerInfo());
+            }
         }
 
 
         for (ForwardPath path: fobj.getPaths()) {
-
             if (path.getSwaggerInfo() == null || path.getSwaggerInfo().getOperations().isEmpty()) continue;
-            swagger.path(path.getRoute(), path.getSwaggerInfo());
+
+            if (!searchPath.equals("")) {
+                if (path.getRoute().contains(searchPath)) {
+                    swagger.path(path.getRoute(), path.getSwaggerInfo());
+                }
+            } else {
+                swagger.path(path.getRoute(), path.getSwaggerInfo());
+            }
         }
 
         try {

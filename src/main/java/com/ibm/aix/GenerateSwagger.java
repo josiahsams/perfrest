@@ -47,18 +47,22 @@ public class GenerateSwagger extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String searchpath =req.getParameter("searchpath");
 
-        ObjectNode swaggerObjNode = Helpers.getSwaggerObject(req.getContextPath(), req.getServletContext());
-
-        resp.setContentType("application/json");
-
-        PrintWriter out = resp.getWriter();
-        out.println(swaggerObjNode.toString());
-        out.flush();
-
+        if (searchpath == null || searchpath.equals("")) {
+            ObjectNode swaggerObjNode = Helpers.getSwaggerObject(req.getContextPath(), req.getServletContext());
+            resp.setContentType("application/json");
+            PrintWriter out = resp.getWriter();
+            out.println(swaggerObjNode.toString());
+            out.flush();
+        } else  {
+            ObjectNode swaggerObjNode = Helpers.getSwaggerObjectWithName(req.getContextPath(),
+                    req.getServletContext(), searchpath);
+            resp.setContentType("application/json");
+            PrintWriter out = resp.getWriter();
+            out.println(swaggerObjNode.toString());
+            out.flush();
+        }
     }
-
-
-
 }
 

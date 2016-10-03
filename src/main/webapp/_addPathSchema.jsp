@@ -172,6 +172,15 @@
                     <label class="radio-inline">
                       <input type="radio" name="paramSchemaType">String
                     </label>
+                   <label class="radio-inline">
+                      <input type="radio" name="responseSchemaType">int32
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="responseSchemaType">int64
+                    </label>
+                   <label class="radio-inline">
+                      <input type="radio" name="responseSchemaType">float
+                    </label>
                     <label class="radio-inline">
                       <input type="radio" name="paramSchemaType">Array
                     </label>
@@ -259,12 +268,22 @@
                         <label class="radio-inline">
                           <input type="radio" name="responseSchemaType">String
                         </label>
+                       <label class="radio-inline">
+                          <input type="radio" name="responseSchemaType">int32
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responseSchemaType">int64
+                        </label>
+                       <label class="radio-inline">
+                          <input type="radio" name="responseSchemaType">float
+                        </label>
                         <label class="radio-inline">
                           <input type="radio" name="responseSchemaType">Array
                         </label>
                         <label class="radio-inline">
                           <input type="radio" name="responseSchemaType">$ref
                         </label>
+
                         <span id="respSchHelpBlock" class="help-block">All types other than 'String' type needs Schema</span>
                         </div>
                       </div>

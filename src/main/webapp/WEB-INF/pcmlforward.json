@@ -46,9 +46,88 @@
             "200": {
               "description": "Return System Configuration",
               "schema" :{
-                "type" : "array",
-                "items" : {
-                  "$ref": "#/definitions/structabc"
+                "type" : "object",
+                "properties" : {
+                  "__returnCode" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref": "#/definitions/structabc"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cfunc/squareabcdptrWithRC" : {
+      "pcmlInfo": {
+        "library": "libabc.so",
+        "pcmlId" : "id71S2v0.1",
+        "symbol" : "squareabcdptr"
+      },
+      "routingInfo": {
+        "host": "localhost",
+        "port": 4000
+      },
+      "staticValues": {
+        "e": 10
+      },
+      "returnEntries" : {
+        "__returnCode":{},
+        "ptr":{}
+      },
+      "swaggerInfo": {
+        "post": {
+          "tags": [
+            "math"
+          ],
+          "operationId": "performSquareOp",
+          "summary": "Perform Square",
+          "description": "Long description about the API method",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "firstarg",
+              "in": "body",
+              "description": "Input Parameter 1 description",
+              "required": true,
+              "schema" : {
+                "$ref" : "#/definitions/firstarg"
+              }
+            }
+
+          ],
+          "responses": {
+            "200": {
+              "description": "Return System Configuration",
+              "schema" :{
+                "type" : "object",
+                "properties" : {
+                  "__returnCode" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref": "#/definitions/structabc"
+                    }
+                  },
+                  "ptr" : {
+                    "type" : "array",
+                    "items" : {
+                      "$ref": "#/definitions/structabc"
+                    }
+                  }
                 }
               }
             },
@@ -62,6 +141,7 @@
         }
       }
     }
+
   },
   "tags" : [
     {
@@ -132,11 +212,7 @@
           }
         },
         "d" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          },
-          "maxItems" : 1
+          "type" : "string"
         }
       }
     }

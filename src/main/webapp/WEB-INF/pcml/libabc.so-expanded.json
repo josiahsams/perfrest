@@ -44,11 +44,7 @@
                     "passby": 1
                 },
                 "d": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "maxItems": 1,
+                    "type": "string",
                     "offset": 16,
                     "length": 8,
                     "passby": 1
@@ -155,11 +151,7 @@
                             "passby": 1
                         },
                         "d": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "maxItems": 1,
+                            "type": "string",
                             "offset": 16,
                             "length": 8,
                             "passby": 1
@@ -214,11 +206,7 @@
                                 "passby": 1
                             },
                             "d": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                },
-                                "maxItems": 1,
+                                "type": "string",
                                 "offset": 16,
                                 "length": 8,
                                 "passby": 1

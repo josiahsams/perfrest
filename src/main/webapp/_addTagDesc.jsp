@@ -16,6 +16,34 @@
                 <c:set var="action" value="add"/>
               </c:if>
               <input type="hidden" id="action" name="action" value="${action}"/>
+
+                            <div class="form-group">
+                              <label for="tagSelect" class="control-label col-sm-2">Add/Edit:</label>
+                              <div class="col-sm-8">
+                                  <select class="form-control" id="tagSelect" messageSuffix="tagDetails"
+                                    onchange="showTag(this);">
+                                    <option value="0">Add New Tag</option>
+                                    <c:forEach var="defn" items="${paths.tags}" varStatus="tagIndex">
+                                      <option value="${tagIndex.count}">${defn.name}</option>
+                                    </c:forEach>
+                                  </select>
+
+                              </div>
+                            </div>
+
+                            <div class="form-group" style="display: none">
+                              <label class="control-label col-sm-2"></label>
+                              <div class="col-sm-8" >
+                                <c:forEach var="defn" items="${paths.tags}" varStatus="tagIndex">
+                                  <div id="${tagIndex.count}_tagName">${defn.name}</div>
+                                  <div  id="${tagIndex.count}_tagDetails" >${defn.description}
+                                 </div>
+                                </c:forEach>
+                              </div>
+                            </div>
+
+
+
               <div class="form-group ">
 
                 <label for="tagName" class="control-label col-sm-2">Tag Name: </label>
@@ -30,7 +58,7 @@
 
                 <label for="tagDesc" class="control-label col-sm-2">Tag Description: </label>
                 <div class="col-sm-8">
-                  <input type="text" name="tagName" id="tagDesc" class="form-control"
+                  <input type="text" name="tagDesc" id="tagDesc" class="form-control"
                   value=""
                   required aria-describedby="basic-addon3"
                   placeholder="Enter Tag Description"/>

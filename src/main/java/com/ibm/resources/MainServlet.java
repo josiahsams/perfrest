@@ -52,6 +52,12 @@ public class MainServlet  extends HttpServlet{
             routeList.add(path);
         }
 
+        if (req.getParameter("searchpath") !=null && !req.getParameter("searchpath").equals("")) {
+            req.setAttribute("searchpath", req.getParameter("searchpath"));
+        } else {
+            req.setAttribute("searchpath", req.getParameter(""));
+        }
+
         String jsonContent = Helpers.getJsonContent("/WEB-INF/forward-expanded.json", this.getServletContext());
         if(!jsonContent.equals("")) {
             req.setAttribute("jsonContent", jsonContent);

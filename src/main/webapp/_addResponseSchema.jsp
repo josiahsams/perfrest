@@ -18,11 +18,39 @@
                 <c:set var="action" value="add"/>
               </c:if>
               <input type="hidden" id="action" name="action" value="${action}"/>
-              <div class="form-group ">
 
-                <label for="responseKey" class="control-label col-sm-2">Response Schema Key: </label>
+
+
+
+              <div class="form-group">
+                <label for="rsparamSchema" class="control-label col-sm-2">Add/Edit:</label>
                 <div class="col-sm-8">
-                  <input type="text" name="responseschemaKey" id="responseschemaKey" class="form-control"
+                    <select class="form-control" id="rsparamSchema" messageSuffix="rsparamSchemaDetails"
+                      onchange="rsshowSchema(this);">
+                      <option value="0">Add New Schema</option>
+                      <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_index">
+                        <option value="${ps_index.count}">#/definitions/${defn.key}</option>
+                      </c:forEach>
+                    </select>
+
+                </div>
+              </div>
+
+              <div class="form-group" style="display: none">
+                <label class="control-label col-sm-2"></label>
+                <div class="col-sm-8" >
+                  <c:forEach var="defn" items="${paths.definitions}" varStatus="ps_mesgIndex">
+                    <div id="${ps_mesgIndex.count}_rsdefnName">${defn.key}</div>
+                    <div  id="${ps_mesgIndex.count}_rsparamSchemaDetails" >${obj.writerWithDefaultPrettyPrinter().writeValueAsString(defn.value)}
+                   </div>
+                  </c:forEach>
+                </div>
+              </div>
+
+               <div class="form-group ">
+                <label for="rsschemaKey" class="control-label col-sm-2">Response Schema Key: </label>
+                <div class="col-sm-8">
+                  <input type="text" name="rsschemaKey" id="rsschemaKey" class="form-control"
                   value=""
                   required="true"  aria-describedby="basic-addon3"
 
@@ -32,10 +60,10 @@
 
 
               <div class="form-group ">
-                <label for="responseschemaDefn" class="control-label col-sm-2">Response Schema: </label>
+                <label for="rsschemaDefn" class="control-label col-sm-2">Response Schema: </label>
                 <div class="col-sm-8" >
-                  <textarea name="responseschemaDefn" data-editor="json" rows="15"
-                  id="textarea-response"
+                  <textarea name="rsschemaDefn" data-editor="json" rows="15"
+                  id="rsschemaDefn"
                   class="form-control" style="width:600px; height:200px; "
                   aria-describedby="basic-addon3"></textarea>
                 </div>

@@ -55,8 +55,10 @@
         class="tab-pane fade ${listPathTab}" id="listPath">
         <%@ include file="./_routes.jsp" %>
       </div>
+      <input type="hidden" id="searchpath" value="${searchpath}">
 
     </div>
   </div>
+
 
   <%@ include file="./_footer.jsp" %>

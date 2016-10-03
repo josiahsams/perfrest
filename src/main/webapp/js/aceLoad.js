@@ -29,7 +29,8 @@
                 position: 'absolute',
                 width: textarea.width(),
                 height: textarea.height(),
-                'class': textarea.attr('class')
+                'class': textarea.attr('class'),
+                id: textarea.attr('id')+"_editor"
             }).insertBefore(textarea);
             //textarea.css('visibility', 'hidden');
             textarea.css('display', 'none');
