@@ -38,14 +38,17 @@ public class Routing {
                 paramNode = mapper.readTree(inputContent);
             }
 
+            ObjectNode newMetadata = (ObjectNode)  paramNode;
+
             //JsonNode returnEntry = mapper.readTree("{\"__returnCode\":{}}");
             JsonNode returnEntry = mapper.readTree(pcmlPath.getReturnEntries().toString());
 
             // JsonNode staticValues = mapper.readTree("{\"e\":10}");
             JsonNode staticValues = pcmlPath.getStaticValues();
+            if (staticValues != null) {
+                newMetadata.setAll((ObjectNode) staticValues);
+            }
 
-            ObjectNode newMetadata = (ObjectNode)  paramNode;
-            newMetadata.setAll((ObjectNode) staticValues);
             //newMetadata.putObject(staticValues.toString());
             csm.setParams(newMetadata);
             csm.setReturnEntries(returnEntry);
