@@ -69,7 +69,7 @@
     },
     "/cfunc/squareabcdptrWithRC" : {
       "pcmlInfo": {
-        "library": "libabc.so",
+        "library": "/home/shaj/zconnect/format2/lib/libabc.so",
         "pcmlId" : "id71S2v0.1",
         "symbol" : "squareabcdptr"
       },

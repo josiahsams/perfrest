@@ -2,7 +2,7 @@
   "pcml" : {
     "id" : "idabc71S2v0.1",
     "version" : "v0.1",
-    "library" : "/usr/lib/libabc.a",
+    "library" : "/home/shaj/zconnect/format2/lib/libabc.so",
     "oslevel" : "71TL06_SP2"
   },
   "definitions" : {
